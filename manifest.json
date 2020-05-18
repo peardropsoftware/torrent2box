@@ -1,0 +1,22 @@
+{
+	"manifest_version": 2,
+	"name": "torrent2box",
+	"version": "0.0.1",
+
+	"description": "Blah blah blah",
+	"icons": {"16":"images/icon-16.png", "48":"images/icon-48.png", "128":"images/icon-128.png"},
+
+	"background": {
+		"scripts": ["background.js"],
+		"persistent": true
+	},
+	"content_scripts": [
+		{
+			"matches": ["*://*/*"],
+			"run_at": "document_end",
+			"js": ["content.js"],
+			"match_about_blank": true
+		}
+	],
+	"options_page": "options.html"
+}
