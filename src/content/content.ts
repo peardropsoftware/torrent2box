@@ -1,9 +1,10 @@
-import {ActionType} from "../shared/action-type";
-import {ChromeStorage} from "../shared/chrome-storage";
+import {ChromeStorage} from "../shared/utilities/chrome-storage";
+import {IpcContent} from "./ipc-content";
+import {ActionType} from "../shared/enums/action-type";
 
 const torrentRegex = new RegExp(/([\][]|\b|\.|-|\s)\.torrent\b([^-]|$)/);
 
-function registerLinks(port: chrome.runtime.Port): void {
+function registerLinks(): void {
     const elementArray = document.getElementsByTagName("a");
     const linkArray: HTMLAnchorElement[] = [];
 
@@ -19,11 +20,7 @@ function registerLinks(port: chrome.runtime.Port): void {
             event.preventDefault();
         }
 
-        console.log("clicked");
-        port.postMessage({
-            action: ActionType.AddTorrent,
-            url: (event.target as HTMLAnchorElement).href
-        });
+        IpcContent.addTorrent((event.currentTarget as HTMLAnchorElement).href);
     };
 
     for (const link of linkArray) {
@@ -31,37 +28,38 @@ function registerLinks(port: chrome.runtime.Port): void {
     }
 }
 
-function pingBackground(): void {
-    chrome.runtime.sendMessage("ping", response => {
+function waitForBackground(): void {
+    IpcContent.sendMessage("ping", response => {
         if (chrome.runtime.lastError) {
-            setTimeout(pingBackground, 1000);
+            setTimeout(waitForBackground, 1000);
             return;
         }
 
-        const port = chrome.runtime.connect({name: "torrent2box"});
-        port.postMessage({
-            action: ActionType.Message,
-            message: "Connected to background"
-        });
+        console.log("[torrent2box - content] Connected to background");
 
-        port.onMessage.addListener((response) => {
-            if (!response.action) {
+        chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+            if (!message.actionType) {
                 throw new Error("No action specified");
             }
 
-            switch (response.action as ActionType) {
+            switch (message.actionType as ActionType) {
                 case ActionType.Message:
-                    console.log(response.message);
+                    if (message.text !== "pong") {
+                        console.log(`[torrent2box - background] ${message.text}`);
+                    }
                     break;
                 default:
                     throw new Error("Invalid action type");
             }
         });
 
-        ChromeStorage.load("torrent2box").then((result) => {
-            registerLinks(port);
+        ChromeStorage.load().then((result) => {
+            registerLinks();
+            console.log("[torrent2box - content] Registered links");
+        }).catch((reason) => {
+            console.log("[torrent2box - content] No seed box specified");
         });
     });
 }
 
-pingBackground();
+waitForBackground();

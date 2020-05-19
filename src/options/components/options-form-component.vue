@@ -42,8 +42,8 @@
     import {IForm} from "../interfaces/iform";
     import FormBaseComponent from "./form/form-base-component.vue";
     import {Mixins} from "vue-property-decorator";
-    import {OptionsModel} from "../../shared/options-model";
-    import {ChromeStorage} from "../../shared/chrome-storage";
+    import {OptionsModel} from "../../shared/models/options-model";
+    import {ChromeStorage} from "../../shared/utilities/chrome-storage";
     import {ToasterService} from "../services/toaster-service";
 
     @Component({
@@ -61,7 +61,7 @@
         async submitForm(): Promise<void> {
             try {
                 if (await this.isFormValid()) {
-                    ChromeStorage.save("torrent2box", this.formModel);
+                    await ChromeStorage.save(this.formModel);
                     this.toasterService.success("Saved!");
                 }
             } catch (error) {

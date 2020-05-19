@@ -1,33 +1,31 @@
-export class ChromeStorage {
-    static async load(key: string): Promise<object> {
-        return new Promise<any>((resolve, reject) => {
-            if (!key) {
-                reject("Key cannot be null or undefined.");
-            }
+import {OptionsModel} from "../models/options-model";
 
+export class ChromeStorage {
+    static async load(): Promise<OptionsModel> {
+        return new Promise<any>((resolve, reject) => {
             chrome.storage.local.get("torrent2box", (items) => {
                 if (chrome.runtime.lastError) {
-                    reject(chrome.runtime.lastError);
+                    return reject(chrome.runtime.lastError);
                 }
 
-                resolve(JSON.parse(items as any as string));
+                if (!items.torrent2box) {
+                    return reject("Storage is empty");
+                }
+
+                return resolve(JSON.parse(items.torrent2box));
             });
         });
     }
 
-    static async save(key: string, payload: object): Promise<void> {
+    static async save(payload: object): Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            if (!key) {
-                reject("Key cannot be null or undefined.");
-            }
-
             chrome.storage.local.set({
                 torrent2box: JSON.stringify(payload)
             }, () => {
                 if (chrome.runtime.lastError) {
-                    reject(chrome.runtime.lastError);
+                    return reject(chrome.runtime.lastError);
                 } else {
-                    resolve();
+                    return resolve();
                 }
             });
         });

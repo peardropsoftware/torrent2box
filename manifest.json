@@ -2,21 +2,27 @@
 	"manifest_version": 2,
 	"name": "torrent2box",
 	"version": "0.0.1",
-
 	"description": "Blah blah blah",
-	"icons": {"16":"images/icon-16.png", "48":"images/icon-48.png", "128":"images/icon-128.png"},
-
+	"icons": {"16":"images/icon-purple-16.png", "48":"images/icon-purple-48.png", "128":"images/icon-purple-128.png"},
 	"background": {
-		"scripts": ["background.js"],
+		"scripts": ["background-vendor.js", "background.js"],
 		"persistent": true
 	},
 	"content_scripts": [
 		{
 			"matches": ["*://*/*"],
-			"run_at": "document_end",
 			"js": ["content.js"],
-			"match_about_blank": true
+			"run_at": "document_end"
 		}
 	],
-	"options_page": "options.html"
+	"options_page": "options.html",
+	"permissions": [
+		"storage",
+		"notifications"
+	],
+	"web_accessible_resources": [
+		"images/icon-purple-48.png",
+		"images/icon-green-48.png",
+		"images/icon-red-48.png"
+	]
 }
