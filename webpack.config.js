@@ -135,6 +135,7 @@ module.exports = {
             patterns: [
                 {from: "manifest.json"},
                 {from: "images", to: "images"},
+                {from: "images/icon-purple-128.png", to: "icon-128.png"},
                 {from: "node_modules/@fortawesome/fontawesome-free/webfonts", to: "fonts/font-awesome"}
             ]
         }),
