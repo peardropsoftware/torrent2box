@@ -10,7 +10,6 @@
 </template>
 
 <script lang="ts">
-  // TODO: Fix type checking
   export default {
       name: "form-error-message",
       props: {

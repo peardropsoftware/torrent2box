@@ -101,14 +101,7 @@ module.exports = {
                         }
                     },
                     "css-loader",
-                    {
-                        loader: "sass-loader",
-                        options: {
-                            // Import variables for use in Vue single file components
-                            prependData:
-                                `@import "./src/options/styles/colors.scss";`
-                        }
-                    }
+                    "sass-loader"
                 ]
             }
         ]

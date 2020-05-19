@@ -5,8 +5,7 @@
 	"description": "Upload torrents from your browser to your rutorrent seedbox.",
 	"icons": {"16":"images/icon-purple-16.png", "48":"images/icon-purple-48.png", "128":"images/icon-purple-128.png"},
 	"background": {
-		"scripts": ["background-vendor.js", "background.js"],
-		"persistent": true
+		"scripts": ["background-vendor.js", "background.js"]
 	},
 	"content_scripts": [
 		{

@@ -41,7 +41,7 @@
 
         mounted(): void {
             if (!this.formModel) {
-                throw new Error("BaseForm() - formModel is undefined");
+                throw new Error("FormBase() - formModel is undefined");
             }
         }
     }
