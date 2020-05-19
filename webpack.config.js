@@ -38,15 +38,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, "build"),
-        filename: "[name].js",
-        devtoolModuleFilenameTemplate: info => {
-            let $filename = `sources://${info.resourcePath}`;
-            if (info.resourcePath.match(/\.vue$/) && !info.query.match(/type=script/)) {
-                $filename = `webpack-generated:///${info.resourcePath}?${info.hash}`;
-            }
-            return $filename;
-        },
-        devtoolFallbackModuleFilenameTemplate: "webpack:///[resource-path]?[hash]"
+        filename: "[name].js"
     },
     devtool: false,
     module: {
@@ -77,9 +69,9 @@ module.exports = {
             },
             {
                 // HTML
-                // exclude index.html which is processed by HtmlWebpackPlugin
+                // exclude options.html which is processed by HtmlWebpackPlugin
                 test: /\.html$/,
-                exclude: /index\.html$/,
+                exclude: /options\.html$/,
                 use: "html-loader"
             },
             {
