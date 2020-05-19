@@ -23,8 +23,8 @@
                          icon-class="fa-key">
         </form-input-text>
 
-        <div class="control is-pulled-right">
-          <button class="button is-primary" type="submit">Save</button>
+        <div class="control is-pulled-right" style="margin-top: 1rem;">
+          <button class="button is-primary" type="submit">{{submitButtonText}}</button>
         </div>
 
         <div class="is-clearfix"></div>
@@ -57,15 +57,28 @@
         formModel: OptionsModel = new OptionsModel();
         errorMessage: string = "";
         toasterService: ToasterService = new ToasterService();
+        submitButtonText: string = "Save options";
 
         async submitForm(): Promise<void> {
             try {
                 if (await this.isFormValid()) {
                     await ChromeStorage.save(this.formModel);
-                    this.toasterService.success("Saved!");
+                    this.toasterService.success("Saved successfully");
                 }
             } catch (error) {
                 this.errorMessage = error.message;
+            }
+        }
+
+        async mounted(): Promise<void> {
+            try {
+                const optionsModel: OptionsModel = await ChromeStorage.load();
+                if (optionsModel) {
+                    this.formModel = optionsModel;
+                    this.submitButtonText = "Update options";
+                }
+            } catch (error) {
+                // Do nothing
             }
         }
     }
@@ -73,6 +86,6 @@
 
 <style lang="scss">
   #options-form {
-    // Empty
+    margin-top: 1rem;
   }
 </style>

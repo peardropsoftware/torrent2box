@@ -26,10 +26,10 @@
 </script>
 
 <style lang="scss">
-    #shared-toaster {
-        position: fixed;
-        top: 5.5rem;
-        right: 0;
-        z-index: 100;
-    }
+  #shared-toaster {
+    position: fixed;
+    top: 3.3rem;
+    right: 0;
+    z-index: 100;
+  }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div id="form-layout" class="expand-vertical level">
+  <div id="form-layout" class="level">
     <div class="columns is-centered level-item">
       <div v-if="!isSuccess" class="column is-half">
         <slot></slot>
