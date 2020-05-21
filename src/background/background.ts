@@ -92,7 +92,7 @@ function addTorrent(torrentUrl: URL): void {
     }
 
     if (torrentUrl.protocol === "magnet:") {
-        sendMagnetToSeedBox(torrentUrl);
+        void sendMagnetToSeedBox(torrentUrl);
         return;
     }
 
@@ -110,7 +110,7 @@ function addTorrent(torrentUrl: URL): void {
     }).then((response) => {
         // Success
         if (response.data instanceof Blob) {
-            sendFileToSeedBox(fileName, response.data);
+            void sendFileToSeedBox(fileName, response.data);
             return;
         }
 

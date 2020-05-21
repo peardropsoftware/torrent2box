@@ -3,7 +3,7 @@ import {sentenceCase} from "change-case";
 import {IFriendlyValidation} from "../interfaces/ifriendly-validation";
 
 export class FriendlyValidation {
-    static async validate(objectToValidate: any, validatorOptions?: ValidatorOptions): Promise<IFriendlyValidation> {
+    static async validate(objectToValidate: Record<string, any>, validatorOptions?: ValidatorOptions): Promise<IFriendlyValidation> {
         const friendlyValidationErrors: IFriendlyValidation = {};
         const validationErrors: ValidationError[] = await validate(objectToValidate, validatorOptions);
 

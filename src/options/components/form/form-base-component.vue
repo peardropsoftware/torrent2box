@@ -14,13 +14,13 @@
         }
     })
     export default class FormBaseComponent extends Vue implements IForm {
-        formModel: object;
+        formModel: Record<string, any>;
         validationErrors: IFriendlyValidation = {};
         isComplete: boolean = false;
         isSkipMissingProperties = true;
 
         @Watch("formModel", {immediate: true, deep: true})
-        async onFormModelChanged(newVal: object): Promise<void> {
+        async onFormModelChanged(newVal: Record<string, any>): Promise<void> {
             // console.log("form-base - onFormModelChanged()");
             this.validationErrors = await FriendlyValidation.validate(newVal, {skipMissingProperties: this.isSkipMissingProperties});
         }

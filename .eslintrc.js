@@ -24,16 +24,16 @@ module.exports = {
     rules: {
         "@typescript-eslint/no-inferrable-types": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
-        "@typescript-eslint/interface-name-prefix": ["error", {
-            prefixWithI: "always",
-            allowUnderscorePrefix: false
-        }],
         "@typescript-eslint/no-unused-vars": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/member-ordering": "error",
         "@typescript-eslint/unbound-method": ["error", {
             ignoreStatic: true
         }],
+        "@typescript-eslint/restrict-template-expressions": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
         "vue/max-attributes-per-line": "off",
         "vue/html-closing-bracket-newline": "off",
         "vue/html-self-closing": "off",
@@ -41,6 +41,6 @@ module.exports = {
         "vue/singleline-html-element-content-newline": "off",
         "vue/multiline-html-element-content-newline": "off",
         "vue/require-v-for-key": "off",
-        "vue/name-property-casing": ["error", "kebab-case"]
+        "vue/name-property-casing": ["error", "kebab-case"],
     }
 };
