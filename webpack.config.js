@@ -40,6 +40,9 @@ module.exports = {
         path: path.resolve(__dirname, "build"),
         filename: "[name].js"
     },
+    // Sourcemaps are broken in Chrome extensions
+    // See: https://bugs.chromium.org/p/chromium/issues/detail?id=1053535
+    // See: https://chromium-review.googlesource.com/c/chromium/src/+/2141899
     devtool: false,
     module: {
         rules: [

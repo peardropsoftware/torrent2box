@@ -1,6 +1,6 @@
 {
   "name": "torrent2box",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Upload torrents from your browser to your rutorrent seedbox.",
   "scripts": {
     "start": "webpack --mode=development --watch --progress",
@@ -52,7 +52,7 @@
     "bencode": "2.0.1",
     "bulma": "0.8.2",
     "form-data": "3.0.0",
-    "meta-validator": "0.0.12",
+    "meta-validator": "0.0.13",
     "param-case": "^3.0.3",
     "vue": "2.6.11",
     "vue-class-component": "7.2.3",
