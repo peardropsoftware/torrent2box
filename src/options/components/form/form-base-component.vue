@@ -26,6 +26,7 @@
 
         isFormValid(): boolean {
             // console.log("form-base - isFormValid()");
+            this.isSkipMissingProperties = false;
             this.validationErrors = Validator.validate(this.formModel, {isSkipMissingProperties: this.isSkipMissingProperties});
             return Object.keys(this.validationErrors).length === 0;
         }
