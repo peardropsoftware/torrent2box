@@ -3,9 +3,8 @@
     import Component from "vue-class-component";
     import {Watch} from "vue-property-decorator";
     import FormInputTextComponent from "./form-input-text-component.vue";
-    import {IFriendlyValidation} from "../../interfaces/ifriendly-validation";
-    import {FriendlyValidation} from "../../utilities/friendly-validation";
     import {IForm} from "../../interfaces/iform";
+    import {Validator, ValidationErrors} from "meta-validator";
 
     @Component({
         name: "form-base",
@@ -15,21 +14,20 @@
     })
     export default class FormBaseComponent extends Vue implements IForm {
         formModel: Record<string, any>;
-        validationErrors: IFriendlyValidation = {};
+        validationErrors: ValidationErrors = {};
         isComplete: boolean = false;
         isSkipMissingProperties = true;
 
         @Watch("formModel", {immediate: true, deep: true})
-        async onFormModelChanged(newVal: Record<string, any>): Promise<void> {
+        onFormModelChanged(newVal: Record<string, any>): void {
             // console.log("form-base - onFormModelChanged()");
-            this.validationErrors = await FriendlyValidation.validate(newVal, {skipMissingProperties: this.isSkipMissingProperties});
+            this.validationErrors = Validator.validate(newVal, {isSkipMissingProperties: this.isSkipMissingProperties});
         }
 
-        async isFormValid(): Promise<boolean> {
+        isFormValid(): boolean {
             // console.log("form-base - isFormValid()");
-            this.isSkipMissingProperties = false;
-            this.validationErrors = await FriendlyValidation.validate(this.formModel, {skipMissingProperties: this.isSkipMissingProperties});
-            return (Object.keys(this.validationErrors).length === 0);
+            this.validationErrors = Validator.validate(this.formModel, {isSkipMissingProperties: this.isSkipMissingProperties});
+            return Object.keys(this.validationErrors).length === 0;
         }
 
         resetForm(): void {

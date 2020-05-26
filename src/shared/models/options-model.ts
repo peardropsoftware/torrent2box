@@ -1,4 +1,4 @@
-import {IsNotEmpty, IsUrl} from "class-validator-fork";
+import {IsNotEmpty, IsUrl} from "meta-validator";
 
 export class OptionsModel {
     @IsNotEmpty()

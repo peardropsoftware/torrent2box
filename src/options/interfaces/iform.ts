@@ -1,10 +1,10 @@
-import {IFriendlyValidation} from "./ifriendly-validation";
+import {ValidationErrors} from "meta-validator";
 
 export interface IForm {
     formModel: any;
-    validationErrors: IFriendlyValidation;
+    validationErrors: ValidationErrors;
     isComplete: boolean;
     isSkipMissingProperties: boolean;
-    isFormValid(): Promise<boolean>;
+    isFormValid(): boolean;
     resetForm(): void;
 }

@@ -1,7 +1,7 @@
 import "./options.scss";
 import Vue from "vue";
 import AppComponent from "./app-component.vue";
-import {paramCase} from "change-case";
+import {paramCase} from "param-case";
 import {focusDirective} from "./directives/focus-directive";
 
 Vue.config.productionTip = false;

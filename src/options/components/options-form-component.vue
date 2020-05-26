@@ -23,7 +23,7 @@
         <form-input-text v-model="formModel.linkMatcher"
                          input-type="text"
                          :validation-errors="validationErrors.linkMatcher"
-                         label="Link regular expression"
+                         label="Link matcher (regular expression)"
                          icon-class="fa-link"></form-input-text>
 
         <div class="control is-pulled-right" style="margin-top: 1rem;">
@@ -64,9 +64,11 @@
 
         async submitForm(): Promise<void> {
             try {
-                if (await this.isFormValid()) {
+                if (this.isFormValid()) {
                     await ChromeStorage.save(this.formModel);
                     this.toasterService.success("Saved successfully");
+                } else {
+                    this.toasterService.error("Invalid form options")
                 }
             } catch (error) {
                 this.errorMessage = error.message;
