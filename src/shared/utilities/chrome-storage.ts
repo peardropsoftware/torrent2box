@@ -12,7 +12,7 @@ export class ChromeStorage {
                     return reject("Storage is empty");
                 }
 
-                return resolve(JSON.parse(items.torrent2box));
+                return resolve(Object.assign(new OptionsModel(), JSON.parse(items.torrent2box)));
             });
         });
     }

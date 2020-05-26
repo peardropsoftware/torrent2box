@@ -23,6 +23,7 @@
   "homepage": "https://github.com/rmuchall/torrent2box#readme",
   "devDependencies": {
     "@fortawesome/fontawesome-free": "5.13.0",
+    "@types/bencode": "2.0.0",
     "@types/change-case": "2.3.1",
     "@types/chrome": "0.0.114",
     "@types/node": "14.0.5",
@@ -49,6 +50,7 @@
   },
   "dependencies": {
     "axios": "0.19.2",
+    "bencode": "2.0.1",
     "bulma": "0.8.2",
     "change-case": "4.1.1",
     "class-validator-fork": "0.0.7",

@@ -132,11 +132,12 @@ module.exports = {
             ]
         }),
         new BundleAnalyzerPlugin({
-            analyzerMode: process.env.NODE_ENV === "development" ? "disabled" : "static",
+            analyzerMode: "static",
             openAnalyzer: false
         })
     ],
     optimization: {
+        minimize: false,
         splitChunks: {
             cacheGroups: {
                 backgroundVendor: {

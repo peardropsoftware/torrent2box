@@ -3,6 +3,8 @@ import Axios, {AxiosInstance} from "axios";
 import {ChromeStorage} from "../shared/utilities/chrome-storage";
 import {IpcBackground} from "./ipc-background";
 import {IconType} from "../shared/enums/icon-type";
+import {decode} from "bencode";
+import {blobToBuffer} from "./blob-to-buffer";
 import InstalledDetails = chrome.runtime.InstalledDetails;
 
 const axios: AxiosInstance = Axios.create();
@@ -14,28 +16,37 @@ function createNotification(iconType: IconType, title: string, body: string): vo
         type: "basic",
         message: body
     }, (notificationId) => {
-        setTimeout(() => chrome.notifications.clear(notificationId),5000);
+        setTimeout(() => chrome.notifications.clear(notificationId), 5000);
     });
+}
+
+async function extractTorrentNameFromFile(torrentFile: Blob, fileName: string): Promise<string> {
+    const decodedTorrent = decode(await blobToBuffer(torrentFile), undefined, undefined, "utf8");
+    if (decodedTorrent.info.name) {
+        return decodedTorrent.info.name as string;
+    }
+    if (fileName !== "nameless.torrent") {
+        return fileName.replace(".torrent", "");
+    } else {
+        return "Nameless torrent file";
+    }
 }
 
 async function sendFileToSeedBox(fileName: string, torrentFile: Blob): Promise<void> {
     const options = await ChromeStorage.load();
-    const serverAddTorrentUrl = new URL(`${options.serverUrl}/php/addtorrent.php`
-        // Strip duplicate forward slashes
-        .replace(/([^:]\/)\/+/g, "$1"));
-
     const formData = new FormData();
     formData.append("torrent_file", torrentFile, fileName);
-    axios.post(serverAddTorrentUrl.href, formData, {
+    axios.post(options.getServerAddTorrentUrl().href, formData, {
         auth: {
             username: options.userName,
             password: options.password
         }
-    }).then((response) => {
+    }).then(async (response) => {
         // Success
         if (/.*addTorrentSuccess.*/.exec(response.data) || /.*result\[\]=Success.*/.exec(response.request.responseURL)) {
             // Extract torrent name from file name
-            const torrentName: string = fileName.replace(".torrent", "");
+            const torrentName = await extractTorrentNameFromFile(torrentFile, fileName);
+            console.log(`[torrent2box - background] Added torrent: ${torrentName}`);
             createNotification(IconType.Success, "[torrent2box] Added torrent:", torrentName);
             return;
         }
@@ -53,13 +64,9 @@ async function sendFileToSeedBox(fileName: string, torrentFile: Blob): Promise<v
 
 async function sendMagnetToSeedBox(magnetUrl: URL): Promise<void> {
     const options = await ChromeStorage.load();
-    const serverAddTorrentUrl = new URL(`${options.serverUrl}/php/addtorrent.php`
-        // Strip duplicate forward slashes
-        .replace(/([^:]\/)\/+/g, "$1"));
-
     const formData = new FormData();
     formData.append("url", magnetUrl.href);
-    axios.post(serverAddTorrentUrl.href, formData, {
+    axios.post(options.getServerAddTorrentUrl().href, formData, {
         auth: {
             username: options.userName,
             password: options.password
@@ -68,8 +75,13 @@ async function sendMagnetToSeedBox(magnetUrl: URL): Promise<void> {
         // Success
         if (/.*addTorrentSuccess.*/.exec(response.data) || /.*result\[\]=Success.*/.exec(response.request.responseURL)) {
             // Extract torrent name from magnet url
-            const torrentName = magnetUrl.searchParams.get("dn");
-            createNotification(IconType.Success, "[torrent2box] Added torrent:", torrentName !== null ? torrentName : "Unknown magnet url");
+            let torrentName = magnetUrl.searchParams.get("dn");
+            if (!torrentName) {
+                torrentName = "Nameless magnet URL";
+            }
+
+            console.log(`[torrent2box - background] Added torrent: ${torrentName}`);
+            createNotification(IconType.Success, "[torrent2box] Added torrent:", torrentName);
             return;
         }
 
@@ -96,7 +108,7 @@ function addTorrent(torrentUrl: URL): void {
         return;
     }
 
-    let fileName: string = "file.torrent";
+    let fileName: string = "nameless.torrent";
     const regExpResult = /\/([^/]+.torrent)$/.exec(torrentUrl.href);
     if (regExpResult) {
         fileName = regExpResult[1];

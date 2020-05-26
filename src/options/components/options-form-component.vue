@@ -6,22 +6,25 @@
                          input-type="text"
                          :validation-errors="validationErrors.serverUrl"
                          label="Server URL"
-                         icon-class="fa-server">
-        </form-input-text>
+                         icon-class="fa-server"></form-input-text>
 
         <form-input-text v-model="formModel.userName"
                          input-type="text"
                          :validation-errors="validationErrors.userName"
                          label="User name"
-                         icon-class="fa-user">
-        </form-input-text>
+                         icon-class="fa-user"></form-input-text>
 
         <form-input-text v-model="formModel.password"
                          input-type="password"
                          :validation-errors="validationErrors.password"
                          label="Password"
-                         icon-class="fa-key">
-        </form-input-text>
+                         icon-class="fa-key"></form-input-text>
+
+        <form-input-text v-model="formModel.linkMatcher"
+                         input-type="text"
+                         :validation-errors="validationErrors.linkMatcher"
+                         label="Link regular expression"
+                         icon-class="fa-link"></form-input-text>
 
         <div class="control is-pulled-right" style="margin-top: 1rem;">
           <button class="button is-primary" type="submit">{{submitButtonText}}</button>

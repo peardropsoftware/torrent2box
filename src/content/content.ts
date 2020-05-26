@@ -2,15 +2,14 @@ import {ChromeStorage} from "../shared/utilities/chrome-storage";
 import {IpcContent} from "./ipc-content";
 import {ActionType} from "../shared/enums/action-type";
 
-const torrentRegex = new RegExp(/([\][]|\b|\.|-|\s)\.torrent\b([^-]|$)/);
-
-function registerLinks(): void {
+function registerLinks(linkRegExp: RegExp): void {
     const elementArray = document.getElementsByTagName("a");
     const linkArray: HTMLAnchorElement[] = [];
 
-    torrentRegex.lastIndex = 0;
+    linkRegExp.lastIndex = 0;
     for (const element of elementArray) {
-        if (element.href.includes("magnet") || torrentRegex.test(element.href)) {
+        if (element.href.includes("magnet") || linkRegExp.test(element.href)) {
+            element.setAttribute("data-torrent2box", "matched");
             linkArray.push(element);
         }
     }
@@ -54,7 +53,7 @@ function waitForBackground(): void {
         });
 
         ChromeStorage.load().then((result) => {
-            registerLinks();
+            registerLinks(result.getLinkMatcherRegExp());
             console.log("[torrent2box - content] Registered links");
         }).catch((reason) => {
             console.log("[torrent2box - content] No seed box specified");

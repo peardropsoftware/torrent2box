@@ -9,8 +9,8 @@
 	},
 	"content_scripts": [
 		{
-			"matches": ["*://*/*"],
-			"js": ["content.js"],
+			"matches": ["<all_urls>"],
+			"js": ["content-vendor.js", "content.js"],
 			"run_at": "document_end"
 		}
 	],
