@@ -92,11 +92,18 @@ module.exports = {
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            hmr: process.env.NODE_ENV === "development"
+                            esModule: true
                         }
                     },
                     "css-loader",
-                    "sass-loader"
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            // Import variables for use in Vue single file components
+                            prependData:
+                                `@import "./src/options/styles/colors.scss";`
+                        }
+                    }
                 ]
             }
         ]

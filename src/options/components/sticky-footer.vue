@@ -18,8 +18,8 @@
 
 <style lang="scss">
   #sticky-footer {
+    background: $peardrop-green-light;
     height: 2rem;
-    background-color: #00D1B2;
     border-top: 1px solid black;
   }
 </style>

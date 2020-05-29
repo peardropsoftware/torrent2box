@@ -27,7 +27,7 @@
                          icon-class="fa-link"></form-input-text>
 
         <div class="control is-pulled-right" style="margin-top: 1rem;">
-          <button class="button is-primary" type="submit">{{submitButtonText}}</button>
+          <button class="button is-info" type="submit">{{submitButtonText}}</button>
         </div>
 
         <div class="is-clearfix"></div>

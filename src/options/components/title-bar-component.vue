@@ -1,5 +1,5 @@
 <template>
-  <div id="title-bar" class="is-success">
+  <div id="title-bar">
     <div class="is-centered level-item">
       <img class="logo" src="images/icon-purple-48.png" alt="torrent2box">
       <h1 class="title">torrent2box</h1>
@@ -21,7 +21,7 @@
 
 <style lang="scss">
   #title-bar {
-    background-color: #00D1B2;
+    background: $peardrop-green-light;
     border-bottom: 1px solid black;
     padding: 1rem;
 
