@@ -54,7 +54,7 @@ function waitForBackground(): void {
             return;
         }
 
-        console.log("[torrent2box - content] Connected to background");
+        // console.log("[torrent2box - content] Connected to background");
         chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             if (!message.actionType) {
                 throw new Error("No action specified");
@@ -77,13 +77,16 @@ function waitForBackground(): void {
             for (const element of document.getElementsByTagName("a")) {
                 registerLink(linkRegExp, element);
             }
-            console.log("[torrent2box - content] Registered static links");
+            // console.log("[torrent2box - content] Registered static links");
             // Monitor DOM for dynamic links
             monitorDom(linkRegExp);
-            console.log("[torrent2box - content] Monitoring for dynamic links");
-        }).catch((reason) => {
+            // console.log("[torrent2box - content] Monitoring for dynamic links");
+            console.log("[torrent2box] Activated");
+        }).catch((error) => {
             console.log("[torrent2box - content] Links not registered");
-            throw new Error(reason);
+            if (error.message) {
+                console.log(`[torrent2box - content] ${error.message}`);
+            }
         });
     });
 }

@@ -2,13 +2,13 @@
   <div id="information">
     <h1 class="title is-4">Help</h1>
     <p>Please report any bugs, ask any questions or suggest new features by creating an issue
-      on the <a href="https://github.com/peardropsoftware/torrent2box/issues">issue tracker</a>.</p>
+      on the <a href="https://github.com/peardropsoftware/torrent2box/issues" target="_blank">issue tracker</a>.</p>
     <h1 class="title is-4">Changelog</h1>
-    <p>Details of the most recent changes are available in the <a href="https://github.com/peardropsoftware/torrent2box/blob/master/CHANGELOG.md">changelog</a>.</p>
+    <p>Details of the most recent changes are available in the <a href="https://github.com/peardropsoftware/torrent2box/blob/master/CHANGELOG.md" target="_blank">changelog</a>.</p>
     <h1 class="title is-4">Source code</h1>
-    <p>torrent2box is open source and the source code is available on <a href="https://github.com/peardropsoftware/torrent2box">Github</a>.</p>
+    <p>torrent2box is open source and the source code is available on <a href="https://github.com/peardropsoftware/torrent2box" target="_blank">Github</a>.</p>
     <h1 class="title is-4">Icon</h1>
-    <p>Icon image gratefully obtained from <a href="https://commons.wikimedia.org/wiki/File:Antu_qbittorrent.svg">Wikimedia</a>
+    <p>Icon image gratefully obtained from <a href="https://commons.wikimedia.org/wiki/File:Antu_qbittorrent.svg" target="_blank">Wikimedia</a>
       (Creative Commons).</p>
     <div id="spacer"></div>
   </div>
