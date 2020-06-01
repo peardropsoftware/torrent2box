@@ -1,8 +1,14 @@
 // font-awesome 5
 $fa-font-path: "/fonts/font-awesome"; /* Copied using CopyWebpackPlugin */
 
-// Bulma
-$info: #3E75B0;
-$success: #388F1B;
-$warning: #E0982B;
-$danger: #C4341D;
+// Bulma modifiers
+$family-primary: "Open Sans", sans-serif;
+$info: $t2b-blue-dark;
+$success: $t2b-green-dark;
+$warning: $t2b-orange-dark;
+$danger: $t2b-red-dark;
+
+// Tabs
+$tabs-toggle-link-active-color: black;
+$tabs-toggle-link-active-background-color: $t2b-gray-lightest;
+$tabs-toggle-link-active-border-color: transparent;

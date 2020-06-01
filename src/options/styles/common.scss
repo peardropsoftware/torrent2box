@@ -26,7 +26,7 @@ html, body, #app, .expand-vertical {
   flex-direction: column;
 
   // ... and some color
-  background-color: #F2F2F2;
+  background-color: $t2b-gray-light;
 }
 
 // Remove dotted outline in firefox
@@ -50,4 +50,12 @@ a, a:active, a:focus {
   .column {
     border: 1px solid red;
   }
+}
+
+// -----
+
+.tab-content {
+  background-color: $t2b-gray-lightest;
+  padding: 2rem;
+  box-shadow: 10px 10px 8px #888888;
 }

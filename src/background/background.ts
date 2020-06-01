@@ -169,5 +169,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 chrome.runtime.onInstalled.addListener((details: InstalledDetails) => {
     console.log("[torrent2box - background] onInstalled()");
-    chrome.runtime.openOptionsPage();
+    if (details.reason === "install" || process.env.mode === "development") {
+        chrome.runtime.openOptionsPage();
+    }
 });

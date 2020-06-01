@@ -9,7 +9,7 @@ export class ChromeStorage {
                 }
 
                 if (!items.torrent2box) {
-                    return reject("Storage is empty");
+                    return reject(new Error("Storage is empty"));
                 }
 
                 return resolve(Object.assign(new OptionsModel(), JSON.parse(items.torrent2box)));

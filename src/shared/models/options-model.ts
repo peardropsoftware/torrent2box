@@ -29,6 +29,6 @@ export class OptionsModel {
     }
 
     getLinkMatcherRegExp(): RegExp {
-        return new RegExp(this.linkMatcher);
+        return new RegExp(this.linkMatcher, "gim");
     }
 }

@@ -40,10 +40,10 @@
 
 <script lang="ts">
     import Component from "vue-class-component";
-    import FormLayoutComponent from "./form/form-layout-component.vue";
-    import FormErrorMessageComponent from "./form/form-error-message-component.vue";
-    import {IForm} from "../interfaces/iform";
-    import FormBaseComponent from "./form/form-base-component.vue";
+    import FormLayout from "./form/form-layout.vue";
+    import FormErrorMessage from "./form/form-error-message.vue";
+    import {Form} from "../interfaces/form";
+    import FormBase from "./form/form-base.vue";
     import {Mixins} from "vue-property-decorator";
     import {OptionsModel} from "../../shared/models/options-model";
     import {ChromeStorage} from "../../shared/utilities/chrome-storage";
@@ -52,11 +52,11 @@
     @Component({
         name: "options-form",
         components: {
-            "form-layout": FormLayoutComponent,
-            "form-error-message": FormErrorMessageComponent
+            "form-layout": FormLayout,
+            "form-error-message": FormErrorMessage
         }
     })
-    export default class OptionsFormComponent extends Mixins<IForm>(FormBaseComponent) implements IForm {
+    export default class OptionsForm extends Mixins<Form>(FormBase) implements Form {
         formModel: OptionsModel = new OptionsModel();
         errorMessage: string = "";
         toasterService: ToasterService = new ToasterService();
@@ -66,9 +66,9 @@
             try {
                 if (this.isFormValid()) {
                     await ChromeStorage.save(this.formModel);
-                    this.toasterService.success("Saved successfully");
+                    this.toasterService.success("Options saved");
                 } else {
-                    this.toasterService.error("Invalid form options")
+                    this.toasterService.error("Invalid options")
                 }
             } catch (error) {
                 this.errorMessage = error.message;
@@ -91,6 +91,6 @@
 
 <style lang="scss">
   #options-form {
-    margin-top: 1rem;
+    // Empty
   }
 </style>

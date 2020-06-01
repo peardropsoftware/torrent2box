@@ -1,5 +1,5 @@
 <template>
-  <div id="shared-toaster">
+  <div id="toaster">
     <div v-for="toast in toasterService.toastArray"
          class="notification"
          :class="toast.cssClass">
@@ -18,15 +18,15 @@
     import {ToasterService} from "../services/toaster-service";
 
     @Component({
-        name: "toaster-component"
+        name: "toaster"
     })
-    export default class ToasterComponent extends Vue {
+    export default class Toaster extends Vue {
         toasterService: ToasterService = new ToasterService();
     }
 </script>
 
 <style lang="scss">
-  #shared-toaster {
+  #toaster {
     position: fixed;
     top: 3.3rem;
     right: 0;

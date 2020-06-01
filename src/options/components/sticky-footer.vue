@@ -9,16 +9,16 @@
     import Component from "vue-class-component";
 
     @Component({
-        name: "navbar-component"
+        name: "sticky-footer"
     })
-    export default class StickyFooterComponent extends Vue {
+    export default class StickyFooter extends Vue {
         // Empty
     }
 </script>
 
 <style lang="scss">
   #sticky-footer {
-    background: $peardrop-green-light;
+    background: $t2b-blue-medium;
     height: 2rem;
     border-top: 1px solid black;
   }

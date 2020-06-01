@@ -2,29 +2,49 @@ import {ChromeStorage} from "../shared/utilities/chrome-storage";
 import {IpcContent} from "./ipc-content";
 import {ActionType} from "../shared/enums/action-type";
 
-function registerLinks(linkRegExp: RegExp): void {
-    const elementArray = document.getElementsByTagName("a");
-    const linkArray: HTMLAnchorElement[] = [];
-
-    linkRegExp.lastIndex = 0;
-    for (const element of elementArray) {
-        if (element.href.includes("magnet") || linkRegExp.test(element.href)) {
-            element.setAttribute("data-torrent2box", "matched");
-            linkArray.push(element);
-        }
+const clickEventListener: (event: MouseEvent) => void = (event) => {
+    if (!(event.ctrlKey || event.shiftKey || event.altKey)) {
+        event.preventDefault();
     }
 
-    const listener: (event: MouseEvent) => void = (event) => {
-        if (!(event.ctrlKey || event.shiftKey || event.altKey)) {
-            event.preventDefault();
+    IpcContent.addTorrent((event.currentTarget as HTMLAnchorElement).href);
+};
+
+function registerLink(linkRegExp: RegExp, anchorElement: HTMLAnchorElement) {
+    if (!anchorElement.hasAttribute("data-torrent2box")) {
+        linkRegExp.lastIndex = 0;
+        if (anchorElement.href.includes("magnet") || linkRegExp.test(anchorElement.href)) {
+            anchorElement.setAttribute("data-torrent2box", "matched");
+            anchorElement.addEventListener("click", clickEventListener);
         }
-
-        IpcContent.addTorrent((event.currentTarget as HTMLAnchorElement).href);
-    };
-
-    for (const link of linkArray) {
-        link.addEventListener("click", listener);
     }
+}
+
+function monitorDom(linkRegExp: RegExp) {
+    const observer = new MutationObserver(mutations => {
+        for (const mutation of mutations) {
+            for (const node of mutation.addedNodes) {
+                // Track only elements, skip other nodes (e.g. text nodes)
+                if (!(node instanceof HTMLElement)) {
+                    continue;
+                }
+
+                // Register links
+                if (node.tagName.toLowerCase() === "a") {
+                    registerLink(linkRegExp, node as HTMLAnchorElement);
+                } else {
+                    for (const element of node.getElementsByTagName("a")) {
+                        registerLink(linkRegExp, element);
+                    }
+                }
+            }
+        }
+    });
+
+    observer.observe(document, {
+        childList: true,
+        subtree: true
+    });
 }
 
 function waitForBackground(): void {
@@ -35,7 +55,6 @@ function waitForBackground(): void {
         }
 
         console.log("[torrent2box - content] Connected to background");
-
         chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             if (!message.actionType) {
                 throw new Error("No action specified");
@@ -53,10 +72,18 @@ function waitForBackground(): void {
         });
 
         ChromeStorage.load().then((result) => {
-            registerLinks(result.getLinkMatcherRegExp());
-            console.log("[torrent2box - content] Registered links");
+            const linkRegExp = result.getLinkMatcherRegExp();
+            // Register static links
+            for (const element of document.getElementsByTagName("a")) {
+                registerLink(linkRegExp, element);
+            }
+            console.log("[torrent2box - content] Registered static links");
+            // Monitor DOM for dynamic links
+            monitorDom(linkRegExp);
+            console.log("[torrent2box - content] Monitoring for dynamic links");
         }).catch((reason) => {
-            console.log("[torrent2box - content] No seed box specified");
+            console.log("[torrent2box - content] Links not registered");
+            throw new Error(reason);
         });
     });
 }

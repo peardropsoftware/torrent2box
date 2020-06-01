@@ -13,3 +13,6 @@ This extension **only** transfers .torrent files and magnet urls from your compu
 
 ## Technology
 Built with [TypeScript](https://www.typescriptlang.org/) and [Vue](https://vuejs.org/).
+
+## Icon
+Icon image obtained from [Wikimedia](https://commons.wikimedia.org/wiki/File:Antu_qbittorrent.svg) under the Creative Commons license.

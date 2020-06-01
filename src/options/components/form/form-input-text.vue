@@ -32,7 +32,7 @@
     @Component({
         name: "form-input-text"
     })
-    export default class FormInputTextComponent extends Vue {
+    export default class FormInputText extends Vue {
         @Prop() inputType: "text" | "password" | "email";
         @Prop() value: string;
         @Prop() validationErrors: string[];

@@ -42,5 +42,8 @@ module.exports = {
         "vue/multiline-html-element-content-newline": "off",
         "vue/require-v-for-key": "off",
         "vue/name-property-casing": ["error", "kebab-case"],
+    },
+    globals: {
+        chrome: "readonly"
     }
 };
