@@ -42,7 +42,7 @@
 
     #spacer {
       width: 1rem;
-      height: 7.9rem;
+      height: 9.4rem;
     }
   }
 </style>

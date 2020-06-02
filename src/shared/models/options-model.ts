@@ -1,4 +1,4 @@
-import {IsNotEmpty, IsUrl} from "meta-validator";
+import {IsNotEmpty, IsRegEx, IsUrl} from "meta-validator";
 
 export class OptionsModel {
     @IsNotEmpty()
@@ -11,11 +11,12 @@ export class OptionsModel {
     @IsNotEmpty()
     password: string;
 
+    @IsRegEx()
     @IsNotEmpty()
     linkMatcher: string;
 
     constructor() {
-        this.linkMatcher = "(\\.torrent\\b|torrents\\.php\\?action=download)";
+        this.linkMatcher = this.getDefaultLinkMatcher();
     }
 
     getServerAddTorrentUrl(): URL {
@@ -30,5 +31,9 @@ export class OptionsModel {
 
     getLinkMatcherRegExp(): RegExp {
         return new RegExp(this.linkMatcher, "gim");
+    }
+
+    getDefaultLinkMatcher(): string {
+        return "(\\.torrent\\b|torrents\\.php\\?action=download)";
     }
 }

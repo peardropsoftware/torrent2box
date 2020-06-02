@@ -20,11 +20,15 @@
                          label="Password"
                          icon-class="fa-key"></form-input-text>
 
+        <a href="#" @click="restoreDefaultLinkMatcher()">Restore default</a>
+        |
+        <a href="https://regex101.com/r/BW6goQ/1" target="_blank">Regex 101</a>
         <form-input-text v-model="formModel.linkMatcher"
                          input-type="text"
                          :validation-errors="validationErrors.linkMatcher"
                          label="Link matcher (regular expression)"
                          icon-class="fa-link"></form-input-text>
+
 
         <div class="control is-pulled-right" style="margin-top: 1rem;">
           <button class="button is-info" type="submit">{{submitButtonText}}</button>
@@ -73,6 +77,10 @@
             } catch (error) {
                 this.errorMessage = error.message;
             }
+        }
+
+        restoreDefaultLinkMatcher(): void {
+            this.formModel.linkMatcher = this.formModel.getDefaultLinkMatcher();
         }
 
         async mounted(): Promise<void> {

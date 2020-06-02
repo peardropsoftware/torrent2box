@@ -1,4 +1,10 @@
 # Changelog
+#### v0.0.5
+Added option to restore default linkmatcher<br/>
+#### v0.0.4
+Added tabbed navigation in options page<br/>
+Added dynamic link matching<br/>
+Re-styled options page and recolored icons<br/>
 #### v0.0.3
 Fixed validation/save bug in options form<br/>
 Updated meta-validator to latest version<br/>
