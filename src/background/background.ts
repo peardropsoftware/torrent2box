@@ -1,8 +1,8 @@
-import {ActionType} from "../shared/enums/action-type";
+import {ActionType} from "../shared/enums/ActionType";
 import Axios, {AxiosInstance} from "axios";
-import {ChromeStorage} from "../shared/utilities/chrome-storage";
-import {IpcBackground} from "./ipc-background";
-import {IconType} from "../shared/enums/icon-type";
+import {ChromeStorage} from "../shared/utilities/ChromeStorage";
+import {IpcBackground} from "./IpcBackground";
+import {IconType} from "../shared/enums/IconType";
 import {decode} from "bencode";
 import {blobToBuffer} from "./blob-to-buffer";
 import InstalledDetails = chrome.runtime.InstalledDetails;

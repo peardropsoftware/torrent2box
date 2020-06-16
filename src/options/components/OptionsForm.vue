@@ -44,23 +44,23 @@
 
 <script lang="ts">
     import Component from "vue-class-component";
-    import FormLayout from "./form/form-layout.vue";
-    import FormErrorMessage from "./form/form-error-message.vue";
-    import {Form} from "../interfaces/form";
-    import FormBase from "./form/form-base.vue";
+    import FormLayout from "./form/FormLayout.vue";
+    import FormErrorMessage from "./form/FormErrorMessage.vue";
+    import {IForm} from "../interfaces/IForm";
+    import FormBase from "./form/FormBase.vue";
     import {Mixins} from "vue-property-decorator";
-    import {OptionsModel} from "../../shared/models/options-model";
-    import {ChromeStorage} from "../../shared/utilities/chrome-storage";
-    import {ToasterService} from "../services/toaster-service";
+    import {OptionsModel} from "../../shared/models/OptionsModel";
+    import {ChromeStorage} from "../../shared/utilities/ChromeStorage";
+    import {ToasterService} from "../services/ToasterService";
 
     @Component({
         name: "options-form",
         components: {
-            "form-layout": FormLayout,
-            "form-error-message": FormErrorMessage
+            FormLayout,
+            FormErrorMessage
         }
     })
-    export default class OptionsForm extends Mixins<Form>(FormBase) implements Form {
+    export default class OptionsForm extends Mixins<IForm>(FormBase) implements IForm {
         formModel: OptionsModel = new OptionsModel();
         errorMessage: string = "";
         toasterService: ToasterService = new ToasterService();

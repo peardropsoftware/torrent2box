@@ -1,6 +1,6 @@
-import {ChromeStorage} from "../shared/utilities/chrome-storage";
-import {IpcContent} from "./ipc-content";
-import {ActionType} from "../shared/enums/action-type";
+import {ChromeStorage} from "../shared/utilities/ChromeStorage";
+import {IpcContent} from "./IpcContent";
+import {ActionType} from "../shared/enums/ActionType";
 
 const clickEventListener: (event: MouseEvent) => void = (event) => {
     if (!(event.ctrlKey || event.shiftKey || event.altKey)) {

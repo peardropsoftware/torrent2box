@@ -11,18 +11,18 @@
 <script lang="ts">
     import Vue from "vue";
     import Component from "vue-class-component";
-    import TitleBar from "./components/title-bar.vue";
-    import Tabs from "./components/tabs.vue";
-    import Toaster from "./components/toaster.vue";
-    import StickyFooter from "./components/sticky-footer.vue";
+    import TitleBar from "./components/TitleBar.vue";
+    import Tabs from "./components/Tabs.vue";
+    import Toaster from "./components/Toaster.vue";
+    import StickyFooter from "./components/StickyFooter.vue";
 
     @Component({
         name: "app",
         components: {
-            "toaster": Toaster,
-            "title-bar": TitleBar,
-            "tabs": Tabs,
-            "sticky-footer": StickyFooter
+            Toaster,
+            TitleBar,
+            Tabs,
+            StickyFooter
         }
     })
     export default class App extends Vue {

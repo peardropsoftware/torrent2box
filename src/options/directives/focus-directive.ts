@@ -1,5 +1,4 @@
-import {DirectiveFunction} from "vue";
-import {VNode, VNodeDirective} from "vue/types/vnode";
+import {DirectiveFunction, VNode, VNodeDirective} from "vue";
 
 export const focusDirective: DirectiveFunction = (el: HTMLElement, binding: VNodeDirective, vnode: VNode, oldVnode: VNode) => {
     console.log("inserted: focusDirective");

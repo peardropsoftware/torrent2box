@@ -14,7 +14,8 @@ class CleanUpStatsPlugin {
     shouldPickStatChild(child) {
         return !child.name.includes("mini-css-extract-plugin") &&
             !child.name.includes("vue-loader") &&
-            !child.name.includes("html-webpack-plugin");
+            !child.name.includes("html-webpack-plugin") &&
+            !child.name.includes("HtmlWebpackCompiler");
     }
 
     apply(compiler) {
@@ -112,10 +113,16 @@ module.exports = {
         new CleanWebpackPlugin(),
         new ForkTsCheckerWebpackPlugin({
             async: false,
-            vue: true,
-            eslint: process.env.NODE_ENV !== "development",
-            eslintOptions: {
-                configFile: path.resolve(process.cwd(), ".eslintrc.js")
+            typescript: {
+                extensions: {
+                    vue: true
+                },
+                mode: "readonly"
+            },
+            eslint: {
+                files: [
+                    "./src/**/*"
+                ]
             }
         }),
         new VueLoaderPlugin(),

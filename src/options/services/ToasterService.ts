@@ -1,4 +1,4 @@
-import {ToastModel} from "../models/toast-model";
+import {ToastModel} from "../models/ToastModel";
 
 export class ToasterService {
     private static instance: ToasterService;

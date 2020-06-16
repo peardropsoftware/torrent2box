@@ -4,7 +4,7 @@
       <!-- tabs -->
       <div class="tabs is-toggle is-marginless">
         <ul>
-          <li v-for="tab of tabs" :class="{ 'is-active': isTabActive(tab), 'is-inactive': !isTabActive(tab) }">
+          <li v-for="tab of Tabs" :class="{ 'is-active': isTabActive(tab), 'is-inactive': !isTabActive(tab) }">
             <a @click="selectTab(tab)">
               <span class="icon is-small"><i class="fas" :class="tab.icon" aria-hidden="true"></i></span>
               <span>{{tab.title}}</span>
@@ -21,9 +21,9 @@
 <script lang="ts">
     import Vue from "vue";
     import Component from "vue-class-component";
-    import OptionsForm from "./options-form.vue";
-    import Information from "./information.vue";
-    import {TabModel} from "../models/tab-model";
+    import OptionsForm from "./OptionsForm.vue";
+    import Information from "./Information.vue";
+    import {TabModel} from "../models/TabModel";
 
     @Component({
         name: "tabs"

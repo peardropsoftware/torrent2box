@@ -1,8 +1,8 @@
-import {ValidationErrors} from "meta-validator";
+import {IValidationErrors} from "meta-validator";
 
-export interface Form {
+export interface IForm {
     formModel: any;
-    validationErrors: ValidationErrors;
+    validationErrors: IValidationErrors;
     isComplete: boolean;
     isSkipMissingProperties: boolean;
     isFormValid(): boolean;

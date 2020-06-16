@@ -1,5 +1,5 @@
-import {ActionType} from "../shared/enums/action-type";
-import {IconType} from "../shared/enums/icon-type";
+import {ActionType} from "../shared/enums/ActionType";
+import {IconType} from "../shared/enums/IconType";
 
 export class IpcContent {
     static sendMessage(text: string, responseCallback?: ResponseCallback): void {

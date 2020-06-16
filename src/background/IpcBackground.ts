@@ -1,4 +1,4 @@
-import {ActionType} from "../shared/enums/action-type";
+import {ActionType} from "../shared/enums/ActionType";
 
 export class IpcBackground {
     static sendMessage(text: string, responseCallback?: ResponseCallback): void {

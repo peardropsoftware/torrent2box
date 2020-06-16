@@ -15,7 +15,7 @@
 <script lang="ts">
     import Vue from "vue";
     import Component from "vue-class-component";
-    import {ToasterService} from "../services/toaster-service";
+    import {ToasterService} from "../services/ToasterService";
 
     @Component({
         name: "toaster"

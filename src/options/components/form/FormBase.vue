@@ -2,19 +2,19 @@
     import Vue from "vue";
     import Component from "vue-class-component";
     import {Watch} from "vue-property-decorator";
-    import FormInputText from "./form-input-text.vue";
-    import {Form} from "../../interfaces/form";
-    import {Validator, ValidationErrors} from "meta-validator";
+    import FormInputText from "./FormInputText.vue";
+    import {IForm} from "../../interfaces/IForm";
+    import {Validator, IValidationErrors} from "meta-validator";
 
     @Component({
         name: "form-base",
         components: {
-            "form-input-text": FormInputText
+            FormInputText
         }
     })
-    export default class FormBase extends Vue implements Form {
+    export default class FormBase extends Vue implements IForm {
         formModel: Record<string, any>;
-        validationErrors: ValidationErrors = {};
+        validationErrors: IValidationErrors = {};
         isComplete: boolean = false;
         isSkipMissingProperties = true;
 

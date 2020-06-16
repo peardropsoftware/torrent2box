@@ -1,4 +1,4 @@
-import {OptionsModel} from "../models/options-model";
+import {OptionsModel} from "../models/OptionsModel";
 
 export class ChromeStorage {
     static async load(): Promise<OptionsModel> {

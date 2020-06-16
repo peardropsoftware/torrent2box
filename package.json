@@ -1,10 +1,10 @@
 {
   "name": "torrent2box",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Upload torrents from your browser to your rutorrent seedbox.",
   "scripts": {
     "start": "webpack --mode=development --watch --progress",
-    "build": "webpack",
+    "build": "webpack --mode=production --progress",
     "lint": "eslint --config ./.eslintrc.js --ext .ts,.vue ./src"
   },
   "repository": {
@@ -24,23 +24,23 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "5.13.0",
     "@types/bencode": "2.0.0",
-    "@types/chrome": "0.0.114",
-    "@types/node": "14.0.9",
-    "@typescript-eslint/eslint-plugin": "3.1.0",
-    "@typescript-eslint/parser": "3.1.0",
+    "@types/chrome": "0.0.115",
+    "@types/node": "14.0.13",
+    "@typescript-eslint/eslint-plugin": "3.3.0",
+    "@typescript-eslint/parser": "3.3.0",
     "clean-webpack-plugin": "3.0.0",
-    "copy-webpack-plugin": "6.0.1",
-    "css-loader": "3.5.3",
-    "eslint": "7.1.0",
+    "copy-webpack-plugin": "6.0.2",
+    "css-loader": "3.6.0",
+    "eslint": "7.2.0",
     "eslint-plugin-vue": "6.2.2",
-    "fork-ts-checker-webpack-plugin": "4.1.6",
+    "fork-ts-checker-webpack-plugin": "5.0.1",
     "html-loader": "1.1.0",
     "html-webpack-plugin": "4.3.0",
     "mini-css-extract-plugin": "0.9.0",
     "node-sass": "4.14.1",
     "sass-loader": "8.0.2",
     "ts-loader": "7.0.5",
-    "typescript": "3.9.3",
+    "typescript": "3.9.5",
     "vue-loader": "15.9.2",
     "vue-template-compiler": "2.6.11",
     "webpack": "4.43.0",
@@ -50,11 +50,11 @@
   "dependencies": {
     "axios": "0.19.2",
     "bencode": "2.0.1",
-    "bulma": "0.8.2",
-    "meta-validator": "0.0.15",
+    "bulma": "0.9.0",
+    "meta-validator": "0.0.18",
     "param-case": "^3.0.3",
     "vue": "2.6.11",
     "vue-class-component": "7.2.3",
-    "vue-property-decorator": "8.4.2"
+    "vue-property-decorator": "8.5.0"
   }
 }
