@@ -1,4 +1,8 @@
 # Changelog
+#### v0.0.6
+Added fix for if ruTorrent returns an error code
+(e.g. 404) but also succeeds<br/>
+Adopted TypeScript file naming convention<br/>
 #### v0.0.5
 Added option to restore default linkmatcher<br/>
 #### v0.0.4
