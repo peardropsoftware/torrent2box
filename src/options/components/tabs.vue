@@ -4,7 +4,7 @@
       <!-- tabs -->
       <div class="tabs is-toggle is-marginless">
         <ul>
-          <li v-for="tab of Tabs" :class="{ 'is-active': isTabActive(tab), 'is-inactive': !isTabActive(tab) }">
+          <li v-for="tab of tabs" :class="{ 'is-active': isTabActive(tab), 'is-inactive': !isTabActive(tab) }">
             <a @click="selectTab(tab)">
               <span class="icon is-small"><i class="fas" :class="tab.icon" aria-hidden="true"></i></span>
               <span>{{tab.title}}</span>

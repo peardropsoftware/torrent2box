@@ -1,5 +1,5 @@
 import {ActionType} from "../shared/enums/ActionType";
-import Axios, {AxiosInstance} from "axios";
+import Axios, {AxiosError, AxiosInstance} from "axios";
 import {ChromeStorage} from "../shared/utilities/ChromeStorage";
 import {IpcBackground} from "./IpcBackground";
 import {IconType} from "../shared/enums/IconType";
@@ -8,6 +8,12 @@ import {blobToBuffer} from "./blob-to-buffer";
 import InstalledDetails = chrome.runtime.InstalledDetails;
 
 const axios: AxiosInstance = Axios.create();
+
+function notify(iconType: IconType, message: string) {
+    console.log(`[torrent2box - background]: ${message}`);
+    IpcBackground.sendMessage(message);
+    createNotification(iconType, "[torrent2box]", message);
+}
 
 function createNotification(iconType: IconType, title: string, body: string): void {
     chrome.notifications.create({
@@ -25,6 +31,7 @@ async function extractTorrentNameFromFile(torrentFile: Blob, fileName: string): 
     if (decodedTorrent.info.name) {
         return decodedTorrent.info.name as string;
     }
+
     if (fileName !== "nameless.torrent") {
         return fileName.replace(".torrent", "");
     } else {
@@ -46,19 +53,24 @@ async function sendFileToSeedBox(fileName: string, torrentFile: Blob): Promise<v
         if (/.*addTorrentSuccess.*/.exec(response.data) || /.*result\[\]=Success.*/.exec(response.request.responseURL)) {
             // Extract torrent name from file name
             const torrentName = await extractTorrentNameFromFile(torrentFile, fileName);
-            console.log(`[torrent2box - background] Added torrent: ${torrentName}`);
-            createNotification(IconType.Success, "[torrent2box] Added torrent:", torrentName);
+            notify(IconType.Success, torrentName);
             return;
         }
 
         // Error
-        console.log(`[torrent2box - background] Error: ${response.data ? response.data : "Unknown error"}`);
-        IpcBackground.sendMessage(`Error: ${response.data ? response.data : "Unknown error"}`);
-        createNotification(IconType.Error, "[torrent2box] Error:", response.data ? response.data : "Unknown error");
-    }).catch((error) => {
-        console.log(`[torrent2box - background] Error: ${error.toString()}`);
-        IpcBackground.sendMessage(error.toString());
-        createNotification(IconType.Error, "[torrent2box] Error:", error.toString());
+        notify(IconType.Error, response.data ? response.data : "Unknown error");
+    }).catch(async (error: AxiosError) => {
+        if (error.response) {
+            // ruTorrent may return an error code (e.g. a 404) but still report success
+            if (/.*addTorrentSuccess.*/.exec(error.response.data) || /.*result\[\]=Success.*/.exec(error.response.request.responseURL)) {
+                // Extract torrent name from file name
+                const torrentName = await extractTorrentNameFromFile(torrentFile, fileName);
+                notify(IconType.Success, torrentName);
+                return;
+            }
+        }
+
+        notify(IconType.Error, error.toString());
     });
 }
 
@@ -80,27 +92,34 @@ async function sendMagnetToSeedBox(magnetUrl: URL): Promise<void> {
                 torrentName = "Nameless magnet URL";
             }
 
-            console.log(`[torrent2box - background] Added torrent: ${torrentName}`);
-            createNotification(IconType.Success, "[torrent2box] Added torrent:", torrentName);
+            notify(IconType.Success, torrentName);
             return;
         }
 
         // Error
-        console.log(`[torrent2box - background] Error: ${response.data ? response.data : "Unknown error"}`);
-        IpcBackground.sendMessage(`Error: ${response.data ? response.data : "Unknown error"}`);
-        createNotification(IconType.Error, "[torrent2box] Error:", response.data ? response.data : "Unknown error");
-    }).catch((error) => {
-        console.log(`[torrent2box - background] Error: ${error.toString()}`);
-        IpcBackground.sendMessage(error.toString());
-        createNotification(IconType.Error, "[torrent2box] Error:", error.toString());
+        notify(IconType.Error, response.data ? response.data : "Unknown error");
+    }).catch((error: AxiosError) => {
+        if (error.response) {
+            // ruTorrent may return an error code (e.g. a 404) but still report success
+            if (/.*addTorrentSuccess.*/.exec(error.response.data) || /.*result\[\]=Success.*/.exec(error.response.request.responseURL)) {
+                // Extract torrent name from magnet url
+                let torrentName = magnetUrl.searchParams.get("dn");
+                if (!torrentName) {
+                    torrentName = "Nameless magnet URL";
+                }
+
+                notify(IconType.Success, torrentName);
+                return;
+            }
+        }
+
+        notify(IconType.Error, error.toString());
     });
 }
 
 function addTorrent(torrentUrl: URL): void {
     if (!torrentUrl) {
-        console.log(`[torrent2box - background] Error: torrentUrl is null`);
-        IpcBackground.sendMessage("Error: torrentUrl is null");
-        createNotification(IconType.Error, "[torrent2box] Error:", "torrentUrl is null");
+        notify(IconType.Error, "torrentUrl is null");
     }
 
     if (torrentUrl.protocol === "magnet:") {
@@ -127,13 +146,9 @@ function addTorrent(torrentUrl: URL): void {
         }
 
         // Error
-        console.log(`[torrent2box - background] Error: ${response.data ? response.data : "Unknown error"}`);
-        IpcBackground.sendMessage(`Error: ${response.data ? response.data : "Unknown error"}`);
-        createNotification(IconType.Error, "[torrent2box] Error:", response.data ? response.data : "Unknown error");
-    }).catch((error) => {
-        console.log(`[torrent2box - background] Error: ${error.toString()}`);
-        IpcBackground.sendMessage(error.toString());
-        createNotification(IconType.Error, "[torrent2box] Error:", error.toString());
+        notify(IconType.Error, response.data ? response.data : "Unknown error");
+    }).catch((error: AxiosError) => {
+        notify(IconType.Error, error.toString());
     });
 }
 
