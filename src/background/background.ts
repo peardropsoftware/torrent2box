@@ -42,29 +42,26 @@ async function extractTorrentNameFromFile(torrentFile: Blob, fileName: string): 
 async function sendFileToSeedBox(fileName: string, torrentFile: Blob): Promise<void> {
     const options = await ChromeStorage.load();
     const formData = new FormData();
+    const torrentName = await extractTorrentNameFromFile(torrentFile, fileName);
     formData.append("torrent_file", torrentFile, fileName);
     axios.post(options.getServerAddTorrentUrl().href, formData, {
         auth: {
             username: options.userName,
             password: options.password
         }
-    }).then(async (response) => {
+    }).then((response) => {
         // Success
         if (/.*addTorrentSuccess.*/.exec(response.data) || /.*result\[\]=Success.*/.exec(response.request.responseURL)) {
-            // Extract torrent name from file name
-            const torrentName = await extractTorrentNameFromFile(torrentFile, fileName);
             notify(IconType.Success, torrentName);
             return;
         }
 
         // Error
         notify(IconType.Error, response.data ? response.data : "Unknown error");
-    }).catch(async (error: AxiosError) => {
+    }).catch((error: AxiosError) => {
         if (error.response) {
             // ruTorrent may return an error code (e.g. a 404) but still report success
             if (/.*addTorrentSuccess.*/.exec(error.response.data) || /.*result\[\]=Success.*/.exec(error.response.request.responseURL)) {
-                // Extract torrent name from file name
-                const torrentName = await extractTorrentNameFromFile(torrentFile, fileName);
                 notify(IconType.Success, torrentName);
                 return;
             }
@@ -78,6 +75,13 @@ async function sendMagnetToSeedBox(magnetUrl: URL): Promise<void> {
     const options = await ChromeStorage.load();
     const formData = new FormData();
     formData.append("url", magnetUrl.href);
+
+    // Extract torrent name from magnet url
+    let torrentName = magnetUrl.searchParams.get("dn");
+    if (!torrentName) {
+        torrentName = "Nameless magnet URL";
+    }
+
     axios.post(options.getServerAddTorrentUrl().href, formData, {
         auth: {
             username: options.userName,
@@ -86,13 +90,7 @@ async function sendMagnetToSeedBox(magnetUrl: URL): Promise<void> {
     }).then((response) => {
         // Success
         if (/.*addTorrentSuccess.*/.exec(response.data) || /.*result\[\]=Success.*/.exec(response.request.responseURL)) {
-            // Extract torrent name from magnet url
-            let torrentName = magnetUrl.searchParams.get("dn");
-            if (!torrentName) {
-                torrentName = "Nameless magnet URL";
-            }
-
-            notify(IconType.Success, torrentName);
+            notify(IconType.Success, torrentName!);
             return;
         }
 
@@ -102,13 +100,7 @@ async function sendMagnetToSeedBox(magnetUrl: URL): Promise<void> {
         if (error.response) {
             // ruTorrent may return an error code (e.g. a 404) but still report success
             if (/.*addTorrentSuccess.*/.exec(error.response.data) || /.*result\[\]=Success.*/.exec(error.response.request.responseURL)) {
-                // Extract torrent name from magnet url
-                let torrentName = magnetUrl.searchParams.get("dn");
-                if (!torrentName) {
-                    torrentName = "Nameless magnet URL";
-                }
-
-                notify(IconType.Success, torrentName);
+                notify(IconType.Success, torrentName!);
                 return;
             }
         }
