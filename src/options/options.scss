@@ -1,12 +1,12 @@
 // Variables
-@import "styles/colors";
-@import "styles/variables";
+@import "./styles/colors";
+@import "./styles/variables";
 // Google fonts
-@import "styles/fonts-google";
+@import "./styles/fonts-google";
 // font-awesome 5
 @import "../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome";
 @import "../../node_modules/@fortawesome/fontawesome-free/scss/solid";
 @import "../../node_modules/@fortawesome/fontawesome-free/scss/brands";
 // Bulma
 @import "../../node_modules/bulma/bulma";
-@import "styles/common";
+@import "./styles/common";

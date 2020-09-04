@@ -1,12 +1,13 @@
 module.exports = {
     root: true,
     env: {
-        browser: true
+        node: true,
+        browser: true,
+        webextensions: true
     },
     parser: "vue-eslint-parser",
     parserOptions: {
         parser: "@typescript-eslint/parser",
-        project: ['./tsconfig.json'],
         extraFileExtensions: [".vue"]
     },
     plugins: [
@@ -17,23 +18,22 @@ module.exports = {
         "eslint:recommended",
         "plugin:vue/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+        "plugin:@typescript-eslint/recommended"
     ],
-    ignorePatterns: ["**/*.js", "vue.d.ts"],
     rules: {
-        "@typescript-eslint/no-inferrable-types": "off",
+        "no-control-regex": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/no-unused-vars": "off",
         "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/member-ordering": "error",
-        "@typescript-eslint/unbound-method": ["error", {
-            ignoreStatic: true
-        }],
-        "@typescript-eslint/restrict-template-expressions": "off",
-        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/member-delimiter-style": "off",
         "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
         "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/restrict-template-expressions": "off",
+        "@typescript-eslint/no-inferrable-types": "off",
+        "@typescript-eslint/explicit-module-boundary-types": ["error", {"allowArgumentsExplicitlyTypedAsAny": true}],
+        // Vue
         "vue/max-attributes-per-line": "off",
         "vue/html-closing-bracket-newline": "off",
         "vue/html-self-closing": "off",
@@ -41,9 +41,6 @@ module.exports = {
         "vue/singleline-html-element-content-newline": "off",
         "vue/multiline-html-element-content-newline": "off",
         "vue/require-v-for-key": "off",
-        "vue/name-property-casing": ["error", "kebab-case"],
-    },
-    globals: {
-        chrome: "readonly"
+        "vue/name-property-casing": ["error", "kebab-case"]
     }
 };

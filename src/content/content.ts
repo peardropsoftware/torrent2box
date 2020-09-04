@@ -1,51 +1,7 @@
-import {ChromeStorage} from "../shared/utilities/ChromeStorage";
+import {ChromeStorage} from "../shared/services/ChromeStorage";
 import {IpcContent} from "./IpcContent";
 import {ActionType} from "../shared/enums/ActionType";
-
-const clickEventListener: (event: MouseEvent) => void = (event) => {
-    if (!(event.ctrlKey || event.shiftKey || event.altKey)) {
-        event.preventDefault();
-    }
-
-    IpcContent.addTorrent((event.currentTarget as HTMLAnchorElement).href);
-};
-
-function registerLink(linkRegExp: RegExp, anchorElement: HTMLAnchorElement) {
-    if (!anchorElement.hasAttribute("data-torrent2box")) {
-        linkRegExp.lastIndex = 0;
-        if (anchorElement.href.includes("magnet") || linkRegExp.test(anchorElement.href)) {
-            anchorElement.setAttribute("data-torrent2box", "matched");
-            anchorElement.addEventListener("click", clickEventListener);
-        }
-    }
-}
-
-function monitorDom(linkRegExp: RegExp) {
-    const observer = new MutationObserver(mutations => {
-        for (const mutation of mutations) {
-            for (const node of mutation.addedNodes) {
-                // Track only elements, skip other nodes (e.g. text nodes)
-                if (!(node instanceof HTMLElement)) {
-                    continue;
-                }
-
-                // Register links
-                if (node.tagName.toLowerCase() === "a") {
-                    registerLink(linkRegExp, node as HTMLAnchorElement);
-                } else {
-                    for (const element of node.getElementsByTagName("a")) {
-                        registerLink(linkRegExp, element);
-                    }
-                }
-            }
-        }
-    });
-
-    observer.observe(document, {
-        childList: true,
-        subtree: true
-    });
-}
+import {LinkMatcher} from "./services/LinkMatcher";
 
 function waitForBackground(): void {
     IpcContent.sendMessage("ping", response => {
@@ -75,12 +31,10 @@ function waitForBackground(): void {
             const linkRegExp = result.getLinkMatcherRegExp();
             // Register static links
             for (const element of document.getElementsByTagName("a")) {
-                registerLink(linkRegExp, element);
+                LinkMatcher.registerLink(linkRegExp, element);
             }
-            // console.log("[torrent2box - content] Registered static links");
             // Monitor DOM for dynamic links
-            monitorDom(linkRegExp);
-            // console.log("[torrent2box - content] Monitoring for dynamic links");
+            LinkMatcher.monitorDom(linkRegExp);
             console.log("[torrent2box] Activated");
         }).catch((error) => {
             console.log("[torrent2box - content] Links not registered");

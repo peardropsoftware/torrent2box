@@ -3,31 +3,31 @@
     <form-layout>
       <form v-focus novalidate @submit.prevent="submitForm()">
         <form-input-text v-model="formModel.serverUrl"
-                         input-type="text"
                          :validation-errors="validationErrors.serverUrl"
-                         label="Server URL"
-                         icon-class="fa-server"></form-input-text>
+                         icon-class="fa-server"
+                         input-type="text"
+                         label="Server URL"></form-input-text>
 
         <form-input-text v-model="formModel.userName"
-                         input-type="text"
                          :validation-errors="validationErrors.userName"
-                         label="User name"
-                         icon-class="fa-user"></form-input-text>
+                         icon-class="fa-user"
+                         input-type="text"
+                         label="User name"></form-input-text>
 
         <form-input-text v-model="formModel.password"
-                         input-type="password"
                          :validation-errors="validationErrors.password"
-                         label="Password"
-                         icon-class="fa-key"></form-input-text>
+                         icon-class="fa-key"
+                         input-type="password"
+                         label="Password"></form-input-text>
 
         <a href="#" @click="restoreDefaultLinkMatcher()">Restore default</a>
         |
         <a href="https://regex101.com/r/BW6goQ/1" target="_blank">Regex 101</a>
         <form-input-text v-model="formModel.linkMatcher"
-                         input-type="text"
                          :validation-errors="validationErrors.linkMatcher"
-                         label="Link matcher (regular expression)"
-                         icon-class="fa-link"></form-input-text>
+                         icon-class="fa-link"
+                         input-type="text"
+                         label="Link matcher (regular expression)"></form-input-text>
 
 
         <div class="control is-pulled-right" style="margin-top: 1rem;">
@@ -43,62 +43,63 @@
 </template>
 
 <script lang="ts">
-    import Component from "vue-class-component";
-    import FormLayout from "./form/FormLayout.vue";
-    import FormErrorMessage from "./form/FormErrorMessage.vue";
-    import {IForm} from "../interfaces/IForm";
-    import FormBase from "./form/FormBase.vue";
-    import {Mixins} from "vue-property-decorator";
-    import {OptionsModel} from "../../shared/models/OptionsModel";
-    import {ChromeStorage} from "../../shared/utilities/ChromeStorage";
-    import {ToasterService} from "../services/ToasterService";
+import Component from "vue-class-component";
+import FormLayout from "./form/FormLayout.vue";
+import FormErrorMessage from "./form/FormErrorMessage.vue";
+import {Form} from "../interfaces/Form";
+import FormBase from "./form/FormBase.vue";
+import {Mixins} from "vue-property-decorator";
+import {OptionsModel} from "../../shared/models/OptionsModel";
+import {ChromeStorage} from "../../shared/services/ChromeStorage";
+import {ToasterService} from "../services/ToasterService";
 
-    @Component({
-        name: "options-form",
-        components: {
-            FormLayout,
-            FormErrorMessage
-        }
-    })
-    export default class OptionsForm extends Mixins<IForm>(FormBase) implements IForm {
-        formModel: OptionsModel = new OptionsModel();
-        errorMessage: string = "";
-        toasterService: ToasterService = new ToasterService();
-        submitButtonText: string = "Save options";
+@Component({
+    name: "options-form",
+    components: {
+        FormLayout,
+        FormErrorMessage
+    }
+})
+export default class OptionsForm extends Mixins<Form>(FormBase) implements Form {
+    formModel: OptionsModel = new OptionsModel();
+    errorMessage: string = "";
+    toasterService: ToasterService = new ToasterService();
+    submitButtonText: string = "Save options";
 
-        async submitForm(): Promise<void> {
-            try {
-                if (this.isFormValid()) {
-                    await ChromeStorage.save(this.formModel);
-                    this.toasterService.success("Options saved");
-                } else {
-                    this.toasterService.error("Invalid options")
-                }
-            } catch (error) {
-                this.errorMessage = error.message;
+    async submitForm(): Promise<void> {
+        try {
+            if (await this.isFormValid()) {
+                await ChromeStorage.save(this.formModel);
+                this.toasterService.success("Options saved");
+            } else {
+                this.toasterService.error("Invalid options")
             }
-        }
-
-        restoreDefaultLinkMatcher(): void {
-            this.formModel.linkMatcher = this.formModel.getDefaultLinkMatcher();
-        }
-
-        async mounted(): Promise<void> {
-            try {
-                const optionsModel: OptionsModel = await ChromeStorage.load();
-                if (optionsModel) {
-                    this.formModel = optionsModel;
-                    this.submitButtonText = "Update options";
-                }
-            } catch (error) {
-                // Do nothing
-            }
+        } catch (error) {
+            this.errorMessage = error.message;
         }
     }
+
+    restoreDefaultLinkMatcher(): void {
+        this.formModel.linkMatcher = this.formModel.getDefaultLinkMatcher();
+    }
+
+    async mounted(): Promise<void> {
+        try {
+            const optionsModel: OptionsModel = await ChromeStorage.load();
+            if (optionsModel) {
+                this.formModel = optionsModel;
+                this.submitButtonText = "Update options";
+            }
+        } catch (error) {
+            // This is most likely "Storage is empty" and safely ignored.
+            console.log(error.message);
+        }
+    }
+}
 </script>
 
 <style lang="scss">
-  #options-form {
-    // Empty
-  }
+#options-form {
+  // Empty
+}
 </style>

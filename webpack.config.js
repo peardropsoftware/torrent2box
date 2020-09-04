@@ -82,7 +82,12 @@ module.exports = {
                 // CSS
                 test: /\.css$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            hmr: process.env.NODE_ENV === "development",
+                        }
+                    },
                     "css-loader"
                 ]
             },
@@ -93,16 +98,23 @@ module.exports = {
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            esModule: true
+                            hmr: process.env.NODE_ENV === "development",
                         }
                     },
-                    "css-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            // Do not process urls that use a root path
+                            // These may be static resources that do not need
+                            // to be processed by Webpack (fonts/images etc)
+                            url: url => !url.startsWith('/')
+                        }
+                    },
                     {
                         loader: "sass-loader",
                         options: {
                             // Import variables for use in Vue single file components
-                            prependData:
-                                `@import "./src/options/styles/colors.scss";`
+                            additionalData: `@import "./src/options/styles/colors.scss";`
                         }
                     }
                 ]
@@ -121,8 +133,11 @@ module.exports = {
             },
             eslint: {
                 files: [
-                    "./src/**/*"
-                ]
+                    "./src/**/*.{ts,vue}",
+                ],
+                options: {
+                    configFile: "./.eslintrc.js"
+                }
             }
         }),
         new VueLoaderPlugin(),
@@ -189,8 +204,7 @@ module.exports = {
     },
     resolve: {
         alias: {
-            "vue$": "vue/dist/vue.common.js",
-            "axios$": "axios/dist/axios.js"
+            "vue$": "vue/dist/vue.common.js"
         },
         extensions: [".ts", ".js", ".vue"]
     }

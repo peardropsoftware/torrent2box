@@ -24,9 +24,8 @@ export class OptionsModel {
             throw new Error("serverUrl not defined");
         }
 
-        return new URL(`${this.serverUrl}/php/addtorrent.php`
-            // Strip duplicate forward slashes
-            .replace(/([^:]\/)\/+/g, "$1"));
+        // Normalize URL
+        return new URL(`${this.serverUrl}/php/addtorrent.php`.replace(/([^:]\/)\/+/g, "$1"));
     }
 
     getLinkMatcherRegExp(): RegExp {

@@ -1,4 +1,9 @@
 # Changelog
+#### v0.0.7
+Switched from axios to unified-fetch
+Switched from node-sass to Dart sass
+Refactored some functions into TypeScript static classes
+Updated all dependencies
 #### v0.0.6
 Added fix for if ruTorrent returns an error code
 (e.g. 404) but also succeeds<br/>

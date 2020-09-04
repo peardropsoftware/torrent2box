@@ -67,7 +67,7 @@
     "skipLibCheck": true,                     /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
 
-    // Temp fix for fork-ts-checker-webpack-plugin
+    // Fix for fork-ts-checker-webpack-plugin
     // https://github.com/TypeStrong/fork-ts-checker-webpack-plugin#type-only-modules-watching
     "importsNotUsedAsValues": "preserve"
   }
