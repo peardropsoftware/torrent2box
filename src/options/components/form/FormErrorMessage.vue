@@ -11,7 +11,6 @@
 
 <script lang="ts">
   export default {
-      name: "form-error-message",
       props: {
           errorMessage: {
               required: true,

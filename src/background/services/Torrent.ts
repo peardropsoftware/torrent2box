@@ -1,11 +1,11 @@
 import {decode} from "bencode";
-import {blobToBuffer} from "../utilities/blob-to-buffer";
 import {IconType} from "../../shared/enums/IconType";
 import {ChromeStorage} from "../../shared/services/ChromeStorage";
 import {fetchNoHooks} from "../utilities/fetch-instance";
 import {ChromeNotify} from "./ChromeNotify";
 import {OptionsModel} from "../../shared/models/OptionsModel";
 import {httpStatusTextByCode} from "http-status-ts";
+import {blobToBuffer} from "../utilities/blob-to-buffer";
 
 export abstract class Torrent {
     static async extractTorrentNameFromFile(torrentFile: Blob, fileName: string): Promise<string> {

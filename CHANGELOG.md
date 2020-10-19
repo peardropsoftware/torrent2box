@@ -1,4 +1,7 @@
 # Changelog
+#### v0.0.8
+Fixed bug where links containing the word "magnet" were being incorrectly registered<br/>
+Updated all dependencies<br/>
 #### v0.0.7
 Switched from axios to unified-fetch<br/>
 Switched from node-sass to Dart sass<br/>

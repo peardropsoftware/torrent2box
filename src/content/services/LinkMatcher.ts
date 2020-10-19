@@ -12,7 +12,7 @@ export abstract class LinkMatcher {
     static registerLink(linkRegExp: RegExp, anchorElement: HTMLAnchorElement): void {
         if (!anchorElement.hasAttribute("data-torrent2box")) {
             linkRegExp.lastIndex = 0;
-            if (anchorElement.href.includes("magnet") || linkRegExp.test(anchorElement.href)) {
+            if (anchorElement.href.includes("magnet:?") || linkRegExp.test(anchorElement.href)) {
                 anchorElement.setAttribute("data-torrent2box", "matched");
                 anchorElement.addEventListener("click", LinkMatcher.clickEventListener);
             }

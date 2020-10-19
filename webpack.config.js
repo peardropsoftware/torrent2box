@@ -9,26 +9,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
-// Hide some plugin stat messages
-class CleanUpStatsPlugin {
-    shouldPickStatChild(child) {
-        return !child.name.includes("mini-css-extract-plugin") &&
-            !child.name.includes("vue-loader") &&
-            !child.name.includes("html-webpack-plugin") &&
-            !child.name.includes("HtmlWebpackCompiler");
-    }
-
-    apply(compiler) {
-        compiler.hooks.done.tap("CleanUpStatsPlugin", (stats) => {
-            const children = stats.compilation.children;
-            if (Array.isArray(children)) {
-                stats.compilation.children = children
-                    .filter(child => this.shouldPickStatChild(child));
-            }
-        });
-    }
-}
-
 module.exports = {
     mode: process.env.NODE_ENV,
     target: "web",
@@ -123,6 +103,11 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
+        new Webpack.DefinePlugin({
+            "process.env": {
+                NODE_ENV: process.env.NODE_ENV
+            }
+        }),
         new ForkTsCheckerWebpackPlugin({
             async: false,
             typescript: {
@@ -144,7 +129,6 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "[name].css"
         }),
-        new CleanUpStatsPlugin(),
         new HtmlWebpackPlugin({
             template: "options.html",
             filename: "options.html",
@@ -204,8 +188,10 @@ module.exports = {
     },
     resolve: {
         alias: {
-            "vue$": "vue/dist/vue.common.js"
+            "vue$": "vue/dist/vue.esm.js",
+            // Buffer polyfill
+            "buffer$": "buffer/index.js"
         },
-        extensions: [".ts", ".js", ".vue"]
+        extensions: [".ts", ".js", ".vue"],
     }
 };
