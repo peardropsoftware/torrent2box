@@ -1,4 +1,6 @@
 # Changelog
+#### v0.0.9
+Fixed tabs not displaying in options page
 #### v0.0.8
 Fixed bug where links containing the word "magnet" were being incorrectly registered<br/>
 Updated all dependencies<br/>

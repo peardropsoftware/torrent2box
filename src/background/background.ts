@@ -33,7 +33,8 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 
 chrome.runtime.onInstalled.addListener((details: InstalledDetails) => {
     console.log("[torrent2box - background] onInstalled()");
-    if (details.reason === "install" || process.env.mode === "development") {
+    console.log(`[torrent2box - background] process.env.NODE_ENV = ${process.env.NODE_ENV}`);
+    if (details.reason === "install" || process.env.NODE_ENV === "development") {
         chrome.runtime.openOptionsPage();
     }
 });

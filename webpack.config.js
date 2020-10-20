@@ -1,4 +1,4 @@
-const Webpack = require("webpack");
+const webpack = require("webpack");
 const fs = require("fs");
 const path = require("path");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
@@ -103,11 +103,6 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new Webpack.DefinePlugin({
-            "process.env": {
-                NODE_ENV: process.env.NODE_ENV
-            }
-        }),
         new ForkTsCheckerWebpackPlugin({
             async: false,
             typescript: {
