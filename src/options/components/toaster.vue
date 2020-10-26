@@ -1,10 +1,9 @@
 <template>
-  <div class="fixed top-0 right-0 mt-20 mr-6">
+  <div class="fixed top-0 right-0 mt-20 mr-6 z-50">
     <div v-for="toast in toasterService.toastArray"
-         class="flex rounded items-center px-6 py-4 mb-2 text-base text-white"
-         :class="toast.cssClass">
+         class="flex rounded items-center px-6 py-4 mb-2 text-base text-white cursor-pointer"
+         :class="toast.cssClass" @click="toasterService.removeToast(toast)">
       <component :is="toast.iconComponent" class="h-8 w-8 text-white pr-2"></component>
-      <button @click="toasterService.removeToast(toast)"></button>
       {{toast.message}}
     </div>
   </div>

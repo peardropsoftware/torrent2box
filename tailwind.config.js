@@ -5,7 +5,8 @@ module.exports = {
 
     purge: [
         "./options.html",
-        "./src/**/*.vue"
+        "./src/**/*.vue",
+        "./src/options/services/ToasterService.ts"
     ],
     theme: {
         fontFamily: {

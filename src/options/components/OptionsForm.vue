@@ -35,7 +35,7 @@
       </form-input-text>
 
       <div class="flex w-full justify-end">
-        <button type="submit" class="rounded bg-blue-400 p-2 text-base text-white">{{submitButtonText}}</button>
+        <button type="submit" class="rounded bg-blue-400 p-2 text-base text-white hover:bg-blue-500">{{submitButtonText}}</button>
       </div>
     </form>
 

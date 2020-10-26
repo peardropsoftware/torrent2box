@@ -16,19 +16,19 @@ export class ToasterService {
     }
 
     success(message: string): void {
-        this.addToast(new ToastModel(message, "bg-green-700", IconCheck));
+        this.addToast(new ToastModel(message, "bg-green-600", IconCheck));
     }
 
     info(message: string): void {
-        this.addToast(new ToastModel(message, "bg-blue-700", IconInformation));
+        this.addToast(new ToastModel(message, "bg-blue-600", IconInformation));
     }
 
     warning(message: string): void {
-        this.addToast(new ToastModel(message, "bg-orange-700", IconExclamation));
+        this.addToast(new ToastModel(message, "bg-orange-600", IconExclamation));
     }
 
     error(message: string): void {
-        this.addToast(new ToastModel(message, "bg-red-700", IconExclamation));
+        this.addToast(new ToastModel(message, "bg-red-600", IconExclamation));
     }
 
     addToast(toast: ToastModel): void {
