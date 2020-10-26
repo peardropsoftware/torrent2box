@@ -1,9 +1,9 @@
 <template>
-  <div class="expand-vertical">
+  <div class="flex flex-col min-h-screen">
     <toaster></toaster>
     <title-bar></title-bar>
     <tabs></tabs>
-    <div class="expand-vertical"></div>
+    <div class="flex-grow"></div>
     <sticky-footer></sticky-footer>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div id="sticky-footer">
+  <div class="h-8 border-t border-black bg-blue-300">
     <!-- Empty -->
   </div>
 </template>
@@ -15,11 +15,3 @@
         // Empty
     }
 </script>
-
-<style lang="scss">
-  #sticky-footer {
-    background: $t2b-blue-medium;
-    height: 2rem;
-    border-top: 1px solid black;
-  }
-</style>

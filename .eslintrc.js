@@ -5,6 +5,10 @@ module.exports = {
         browser: true,
         webextensions: true
     },
+    ignorePatterns: [
+        "/options.html",
+        "/**/*.js"
+    ],
     parser: "vue-eslint-parser",
     parserOptions: {
         parser: "@typescript-eslint/parser",

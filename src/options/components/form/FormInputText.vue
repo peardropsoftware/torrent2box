@@ -1,48 +1,47 @@
 <template>
-  <div class="form-input-text field">
-    <label class="label" :for="label | paramCase">{{label}}</label>
-    <div class="control has-icons-left has-icons-right">
+  <div class="mb-4">
+    <label class="text-base font-bold" :for="label | paramCase">{{label}}</label>
+    <div class="flex items-center relative">
       <input :id="label | paramCase"
-             class="input"
+             class="w-full py-1 px-10 text-base rounded my-1"
              :type="inputType"
              :value="value"
-             :class="{ 'is-danger': validationErrors, 'is-success': !validationErrors && value }"
+             :class="{ 'border-2 border-red-500': validationErrors, 'border-2 border-green-500': !validationErrors && value }"
              @input="$emit('input', $event.target.value)" />
-      <span class="icon is-small is-left">
-        <i class="fas" :class="iconClass"></i>
-      </span>
-      <span v-if="!validationErrors && value" class="icon is-small is-right has-text-success">
-        <i class="fas fa-check"></i>
-      </span>
-      <span v-if="validationErrors" class="icon is-small is-right has-text-danger">
-        <i class="fas fa-exclamation"></i>
-      </span>
+      <slot></slot>
+      <icon-check v-if="!validationErrors && value" class="form-validation-icon text-green-500"></icon-check>
+      <icon-exclamation v-if="validationErrors" class="form-validation-icon text-red-500"></icon-exclamation>
     </div>
-    <ul>
-      <li v-for="validationError in validationErrors" class="help is-danger">{{validationError}}</li>
+    <ul class="text-sm text-red-700">
+      <li v-for="validationError in validationErrors">{{validationError}}</li>
     </ul>
   </div>
 </template>
 
 <script lang="ts">
-    import Vue from "vue";
-    import Component from "vue-class-component";
-    import {Prop} from "vue-property-decorator";
+import Vue from "vue";
+import Component from "vue-class-component";
+import {Prop} from "vue-property-decorator";
+import IconCheck from "../icons/IconCheck.vue";
+import IconExclamation from "../icons/IconExclamation.vue";
 
-    @Component({
-        name: "form-input-text"
-    })
-    export default class FormInputText extends Vue {
-        @Prop() inputType: "text" | "password" | "email";
-        @Prop() value: string;
-        @Prop() validationErrors: string[];
-        @Prop() label: string;
-        @Prop() iconClass: string;
+@Component({
+    name: "form-input-text",
+    components: {
+        IconExclamation,
+        IconCheck
     }
+})
+export default class FormInputText extends Vue {
+    @Prop() inputType: "text" | "password" | "email";
+    @Prop() value: string;
+    @Prop() validationErrors: string[];
+    @Prop() label: string;
+}
 </script>
 
-<style lang="scss">
-    .form-input-text {
-        // Empty
-    }
+<style scoped>
+.form-validation-icon {
+    @apply h-8 w-8 absolute right-0 pr-2;
+}
 </style>

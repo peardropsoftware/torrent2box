@@ -1,11 +1,13 @@
+import {Component} from "vue";
+
 export class ToastModel {
     message: string;
     cssClass: string;
-    iconCssClass: string;
+    iconComponent: Component;
 
-    constructor(message: string, cssClass: string, iconCssClass: string) {
+    constructor(message: string, cssClass: string, iconComponent: Component) {
         this.message = message;
         this.cssClass = cssClass;
-        this.iconCssClass = iconCssClass;
+        this.iconComponent = iconComponent;
     }
 }

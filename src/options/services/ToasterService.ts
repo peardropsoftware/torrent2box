@@ -1,4 +1,7 @@
 import {ToastModel} from "../models/ToastModel";
+import IconCheck from "../components/icons/IconCheck.vue";
+import IconExclamation from "../components/icons/IconExclamation.vue";
+import IconInformation from "../components/icons/IconInformation.vue";
 
 export class ToasterService {
     private static instance: ToasterService;
@@ -13,19 +16,19 @@ export class ToasterService {
     }
 
     success(message: string): void {
-        this.addToast(new ToastModel(message, "is-success", "fa-check"));
+        this.addToast(new ToastModel(message, "bg-green-700", IconCheck));
     }
 
     info(message: string): void {
-        this.addToast(new ToastModel(message, "is-info", "fa-exclamation-circle"));
+        this.addToast(new ToastModel(message, "bg-blue-700", IconInformation));
     }
 
     warning(message: string): void {
-        this.addToast(new ToastModel(message, "is-warning", "fa-exclamation-triangle"));
+        this.addToast(new ToastModel(message, "bg-orange-700", IconExclamation));
     }
 
     error(message: string): void {
-        this.addToast(new ToastModel(message, "is-danger", "fa-times"));
+        this.addToast(new ToastModel(message, "bg-red-700", IconExclamation));
     }
 
     addToast(toast: ToastModel): void {

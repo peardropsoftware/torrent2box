@@ -1,4 +1,4 @@
-import "./options.scss";
+import "./options.css";
 import Vue from "vue";
 import App from "./App.vue";
 import {paramCase} from "param-case";

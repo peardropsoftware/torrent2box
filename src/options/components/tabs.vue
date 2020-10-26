@@ -1,20 +1,21 @@
 <template>
-  <div id="tabs" class="columns is-centered">
-    <div class="column is-three-fifths">
-      <!-- tabs -->
-      <div class="tabs is-toggle is-marginless">
-        <ul>
-          <li v-for="tab of tabs" :class="{ 'is-active': isTabActive(tab), 'is-inactive': !isTabActive(tab) }">
-            <a @click="selectTab(tab)">
-              <span class="icon is-small"><i class="fas" :class="tab.icon" aria-hidden="true"></i></span>
-              <span>{{tab.title}}</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <!-- tabs -->
-      <component :is="dynamicComponent" class="tab-content"></component>
+  <div class="grid grid-cols-5">
+    <div><!-- Spacer column --></div>
+    <!-- tabs column -->
+    <div class="col-span-5 md:col-span-3 bg-gray-200 m-4">
+      <!-- tab headers -->
+      <ul class="flex bg-gray-400">
+        <li v-for="tab of tabs" class="p-2 cursor-pointer border border-transparent" :class="{ 'bg-gray-200': isTabActive(tab), 'bg-blue-200 hover:bg-gray-200 hover:border-black hover:border-dotted hover:border-b': !isTabActive(tab) }">
+          <a class="flex items-center" @click="selectTab(tab)">
+            <component :is="tab.icon" class="h-8 w-8 pr-2"></component>
+            <span class="pr-2 text-base">{{tab.title}}</span>
+          </a>
+        </li>
+      </ul>
+      <!-- tab content -->
+      <component :is="dynamicComponent" class="t2b-shadow p-8"></component>
     </div>
+    <div><!-- Spacer column --></div>
   </div>
 </template>
 
@@ -24,6 +25,8 @@
     import OptionsForm from "./OptionsForm.vue";
     import Information from "./Information.vue";
     import {TabModel} from "../models/TabModel";
+    import IconCog from "./icons/IconCog.vue";
+    import IconInformation from "./icons/IconInformation.vue";
 
     @Component({
         name: "tabs"
@@ -33,12 +36,12 @@
             {
                 title: "Options",
                 component: OptionsForm,
-                icon: "fa-cog"
+                icon: IconCog
             },
             {
                 title: "Information",
                 component: Information,
-                icon: "fa-info-circle"
+                icon: IconInformation
             }
         ];
         dynamicComponent: Vue.Component = this.tabs[0].component;
@@ -53,27 +56,8 @@
     }
 </script>
 
-<style lang="scss">
-  #tabs {
-    a .icon {
-      font-weight: bold;
-    }
-
-    .is-active a {
-      background-color: $t2b-gray-lightest;
-      border-radius: 0;
-    }
-
-    .is-inactive a {
-      background-color: $t2b-blue-lightest;
-      border-color: #b5b5b5;
-      border-bottom: none;
-    }
-
-    .is-inactive a:hover {
-      background-color: $t2b-gray-lightest;
-      border-color: #b5b5b5;
-      border-bottom: none;
-    }
+<style lang="css">
+  .t2b-shadow {
+      box-shadow: 10px 10px 8px rgba(136, 136, 136, 1);
   }
 </style>

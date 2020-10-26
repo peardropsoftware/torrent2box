@@ -1,12 +1,10 @@
 <template>
-  <div id="toaster">
+  <div class="fixed top-0 right-0 mt-20 mr-6">
     <div v-for="toast in toasterService.toastArray"
-         class="notification"
+         class="flex rounded items-center px-6 py-4 mb-2 text-base text-white"
          :class="toast.cssClass">
-      <button class="delete" @click="toasterService.removeToast(toast)"></button>
-      <span class="icon">
-        <i class="fas" :class="toast.iconCssClass"></i>
-      </span>
+      <component :is="toast.iconComponent" class="h-8 w-8 text-white pr-2"></component>
+      <button @click="toasterService.removeToast(toast)"></button>
       {{toast.message}}
     </div>
   </div>
@@ -25,11 +23,11 @@
     }
 </script>
 
-<style lang="scss">
-  #toaster {
+<style scoped>
+#toaster {
     position: fixed;
-    top: 3.3rem;
+    top: 5.5rem;
     right: 0;
     z-index: 100;
-  }
+}
 </style>

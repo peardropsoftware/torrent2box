@@ -62,25 +62,7 @@ module.exports = {
                 // CSS
                 test: /\.css$/,
                 use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            hmr: process.env.NODE_ENV === "development",
-                        }
-                    },
-                    "css-loader"
-                ]
-            },
-            {
-                // SASS
-                test: /\.scss$/,
-                use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            hmr: process.env.NODE_ENV === "development",
-                        }
-                    },
+                    MiniCssExtractPlugin.loader,
                     {
                         loader: "css-loader",
                         options: {
@@ -90,19 +72,15 @@ module.exports = {
                             url: url => !url.startsWith('/')
                         }
                     },
-                    {
-                        loader: "sass-loader",
-                        options: {
-                            // Import variables for use in Vue single file components
-                            additionalData: `@import "./src/options/styles/colors.scss";`
-                        }
-                    }
+                    "postcss-loader"
                 ]
             }
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(),
+        new CleanWebpackPlugin({
+            cleanStaleWebpackAssets: false
+        }),
         new ForkTsCheckerWebpackPlugin({
             async: false,
             typescript: {
@@ -139,13 +117,15 @@ module.exports = {
                 {from: "manifest.json"},
                 {from: "images", to: "images"},
                 {from: "images/icon-green-128.png", to: "icon-128.png"},
-                {from: "node_modules/@fortawesome/fontawesome-free/webfonts", to: "fonts/font-awesome"},
                 {from: "fonts/google", to: "fonts/google"}
             ]
         }),
         new BundleAnalyzerPlugin({
             analyzerMode: "static",
             openAnalyzer: false
+        }),
+        new webpack.ProgressPlugin({
+            activeModules: true
         })
     ],
     optimization: {
@@ -172,11 +152,6 @@ module.exports = {
                     chunks: (chunk) => {
                         return chunk.name !== "background" && chunk.name !== "content";
                     }
-                },
-                styles: {
-                    name: "styles",
-                    test: /\.css$/,
-                    chunks: "all"
                 }
             }
         }

@@ -1,50 +1,50 @@
 <template>
-  <div id="options-form">
-    <form-layout>
-      <form v-focus novalidate @submit.prevent="submitForm()">
-        <form-input-text v-model="formModel.serverUrl"
-                         :validation-errors="validationErrors.serverUrl"
-                         icon-class="fa-server"
-                         input-type="text"
-                         label="Server URL"></form-input-text>
+  <div>
+    <form v-focus novalidate @submit.prevent="submitForm()">
+      <form-input-text v-model="formModel.serverUrl"
+                       :validation-errors="validationErrors.serverUrl"
+                       input-type="text"
+                       label="Server URL">
+        <icon-server class="form-icon"></icon-server>
+      </form-input-text>
 
-        <form-input-text v-model="formModel.userName"
-                         :validation-errors="validationErrors.userName"
-                         icon-class="fa-user"
-                         input-type="text"
-                         label="User name"></form-input-text>
+      <form-input-text v-model="formModel.userName"
+                       :validation-errors="validationErrors.userName"
+                       input-type="text"
+                       label="User name">
+        <icon-user class="form-icon"></icon-user>
+      </form-input-text>
 
-        <form-input-text v-model="formModel.password"
-                         :validation-errors="validationErrors.password"
-                         icon-class="fa-key"
-                         input-type="password"
-                         label="Password"></form-input-text>
+      <form-input-text v-model="formModel.password"
+                       :validation-errors="validationErrors.password"
+                       input-type="password"
+                       label="Password">
+        <icon-key class="form-icon"></icon-key>
+      </form-input-text>
 
-        <a href="#" @click="restoreDefaultLinkMatcher()">Restore default</a>
-        |
-        <a href="https://regex101.com/r/BW6goQ/1" target="_blank">Regex 101</a>
-        <form-input-text v-model="formModel.linkMatcher"
-                         :validation-errors="validationErrors.linkMatcher"
-                         icon-class="fa-link"
-                         input-type="text"
-                         label="Link matcher (regular expression)"></form-input-text>
+      <a href="#" class="text-base text-blue-600 hover:underline" @click="restoreDefaultLinkMatcher()">Restore
+        default</a>
+      |
+      <a href="https://regex101.com/r/BW6goQ/1" class="text-base text-blue-600 hover:underline" target="_blank">Regex
+        101</a>
+      <form-input-text v-model="formModel.linkMatcher"
+                       :validation-errors="validationErrors.linkMatcher"
+                       input-type="text"
+                       label="Link matcher (regular expression)">
+        <icon-link class="form-icon"></icon-link>
+      </form-input-text>
 
+      <div class="flex w-full justify-end">
+        <button type="submit" class="rounded bg-blue-400 p-2 text-base text-white">{{submitButtonText}}</button>
+      </div>
+    </form>
 
-        <div class="control is-pulled-right" style="margin-top: 1rem;">
-          <button class="button is-info" type="submit">{{submitButtonText}}</button>
-        </div>
-
-        <div class="is-clearfix"></div>
-      </form>
-
-      <form-error-message :error-message="errorMessage"></form-error-message>
-    </form-layout>
+    <form-error-message :error-message="errorMessage"></form-error-message>
   </div>
 </template>
 
 <script lang="ts">
 import Component from "vue-class-component";
-import FormLayout from "./form/FormLayout.vue";
 import FormErrorMessage from "./form/FormErrorMessage.vue";
 import {Form} from "../interfaces/Form";
 import FormBase from "./form/FormBase.vue";
@@ -52,12 +52,19 @@ import {Mixins} from "vue-property-decorator";
 import {OptionsModel} from "../../shared/models/OptionsModel";
 import {ChromeStorage} from "../../shared/services/ChromeStorage";
 import {ToasterService} from "../services/ToasterService";
+import IconServer from "./icons/IconServer.vue";
+import IconUser from "./icons/IconUser.vue";
+import IconKey from "./icons/IconKey.vue";
+import IconLink from "./icons/IconLink.vue";
 
 @Component({
     name: "options-form",
     components: {
-        FormLayout,
-        FormErrorMessage
+        FormErrorMessage,
+        IconServer,
+        IconUser,
+        IconKey,
+        IconLink
     }
 })
 export default class OptionsForm extends Mixins<Form>(FormBase) implements Form {
@@ -98,8 +105,8 @@ export default class OptionsForm extends Mixins<Form>(FormBase) implements Form 
 }
 </script>
 
-<style lang="scss">
-#options-form {
-  // Empty
+<style scoped>
+.form-icon {
+    @apply h-8 w-8 absolute left-0 pl-2 text-gray-300;
 }
 </style>

@@ -15,7 +15,6 @@ import {MetaValidator, ValidationErrors} from "meta-validator";
 export default class BaseForm extends Vue implements Form {
     formModel: Record<string, unknown> = {};
     validationErrors: ValidationErrors = {};
-    isComplete: boolean = false;
     isSkipMissingProperties = true;
 
     mounted(): void {
