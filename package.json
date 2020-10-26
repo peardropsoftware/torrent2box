@@ -1,6 +1,6 @@
 {
   "name": "torrent2box",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Upload torrents from your browser to your rutorrent seedbox.",
   "scripts": {
     "start": "cross-env-shell NODE_ENV=development webpack --mode=development --watch --progress",

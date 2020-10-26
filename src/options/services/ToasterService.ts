@@ -16,7 +16,7 @@ export class ToasterService {
     }
 
     success(message: string): void {
-        this.addToast(new ToastModel(message, "bg-green-600", IconCheck));
+        this.addToast(new ToastModel(message, "bg-green-500", IconCheck));
     }
 
     info(message: string): void {

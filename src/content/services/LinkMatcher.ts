@@ -4,9 +4,8 @@ export abstract class LinkMatcher {
     static clickEventListener(event: MouseEvent): void {
         if (!(event.ctrlKey || event.shiftKey || event.altKey)) {
             event.preventDefault();
+            IpcContent.addTorrent((event.currentTarget as HTMLAnchorElement).href);
         }
-
-        IpcContent.addTorrent((event.currentTarget as HTMLAnchorElement).href);
     }
 
     static registerLink(linkRegExp: RegExp, anchorElement: HTMLAnchorElement): void {

@@ -1,4 +1,8 @@
 # Changelog
+#### v0.0.10
+Bypass torrent2box if clicked with ctrl, shift or alt keys
+Replaced Sass with PostCSS
+Replaced Bulma with Tailwindcss
 #### v0.0.9
 Fixed tabs not displaying in options page
 #### v0.0.8
