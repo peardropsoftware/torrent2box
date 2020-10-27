@@ -22,11 +22,14 @@
         <icon-key class="form-icon"></icon-key>
       </form-input-text>
 
-      <a href="#" class="text-base text-blue-600 hover:underline" @click="restoreDefaultLinkMatcher()">Restore
-        default</a>
-      |
-      <a href="https://regex101.com/r/BW6goQ/1" class="text-base text-blue-600 hover:underline" target="_blank">Regex
-        101</a>
+      <div class="flex">
+        <a href="#" class="text-base text-blue-600 hover:underline" @click="restoreDefaultLinkMatcher()">Restore
+          default</a>
+        <span class="border-r border-black h-4 self-center mx-2"></span>
+        <a href="https://regex101.com/r/BW6goQ/1" class="text-base text-blue-600 hover:underline" target="_blank">Regex
+          101</a>
+      </div>
+
       <form-input-text v-model="formModel.linkMatcher"
                        :validation-errors="validationErrors.linkMatcher"
                        input-type="text"
