@@ -1,7 +1,4 @@
 import {ToastModel} from "../models/ToastModel";
-import IconCheck from "../components/icons/IconCheck.vue";
-import IconExclamation from "../components/icons/IconExclamation.vue";
-import IconInformation from "../components/icons/IconInformation.vue";
 
 export class ToasterService {
     private static instance: ToasterService;
@@ -16,19 +13,19 @@ export class ToasterService {
     }
 
     success(message: string): void {
-        this.addToast(new ToastModel(message, "bg-green-500", IconCheck));
+        this.addToast(new ToastModel(message, "bg-green-500", "/images/svg/check.svg#check"));
     }
 
     info(message: string): void {
-        this.addToast(new ToastModel(message, "bg-blue-600", IconInformation));
+        this.addToast(new ToastModel(message, "bg-blue-600", "/images/svg/information.svg#information"));
     }
 
     warning(message: string): void {
-        this.addToast(new ToastModel(message, "bg-orange-600", IconExclamation));
+        this.addToast(new ToastModel(message, "bg-orange-600", "/images/svg/exclamation.svg#exclamation"));
     }
 
     error(message: string): void {
-        this.addToast(new ToastModel(message, "bg-red-600", IconExclamation));
+        this.addToast(new ToastModel(message, "bg-red-600", "/images/svg/exclamation.svg#exclamation"));
     }
 
     addToast(toast: ToastModel): void {

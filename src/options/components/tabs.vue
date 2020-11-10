@@ -10,7 +10,9 @@
             :class="{ 'bg-gray-200': isTabActive(tab), 'bg-blue-200 hover:bg-gray-200 hover:border-black hover:border-dotted hover:border-b': !isTabActive(tab) }"
             @click="selectTab(tab)">
           <div class="flex items-center">
-            <component :is="tab.icon" class="h-8 w-8 pr-2"></component>
+            <svg class="h-8 w-8 pr-2">
+              <use :href="tab.iconSrc" />
+            </svg>
             <span class="pr-2 text-base">{{tab.title}}</span>
           </div>
         </li>
@@ -28,8 +30,6 @@ import Component from "vue-class-component";
 import OptionsForm from "./OptionsForm.vue";
 import Information from "./Information.vue";
 import {TabModel} from "../models/TabModel";
-import IconCog from "./icons/IconCog.vue";
-import IconInformation from "./icons/IconInformation.vue";
 
 @Component({
     name: "tabs"
@@ -38,13 +38,13 @@ export default class Tabs extends Vue {
     tabs: TabModel[] = [
         {
             title: "Options",
-            component: OptionsForm,
-            icon: IconCog
+            iconSrc: "/images/svg/cog.svg#cog",
+            component: OptionsForm
         },
         {
             title: "Information",
-            component: Information,
-            icon: IconInformation
+            iconSrc: "/images/svg/information.svg#information",
+            component: Information
         }
     ];
     dynamicComponent: Vue.Component = this.tabs[0].component;

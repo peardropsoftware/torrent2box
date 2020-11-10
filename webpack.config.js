@@ -1,13 +1,11 @@
-const webpack = require("webpack");
-const fs = require("fs");
 const path = require("path");
+const Webpack = require("webpack");
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const {CleanWebpackPlugin} = require("clean-webpack-plugin");
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 
 module.exports = {
     mode: process.env.NODE_ENV,
@@ -21,9 +19,6 @@ module.exports = {
         path: path.resolve(__dirname, "build"),
         filename: "[name].js"
     },
-    // Sourcemaps are broken in Chrome extensions
-    // See: https://bugs.chromium.org/p/chromium/issues/detail?id=1053535
-    // See: https://chromium-review.googlesource.com/c/chromium/src/+/2141899
     devtool: false,
     module: {
         rules: [
@@ -41,22 +36,19 @@ module.exports = {
             {
                 // TypeScript
                 test: /\.ts$/,
-                use: [
-                    {
-                        loader: "ts-loader",
-                        options: {
-                            appendTsSuffixTo: [/\.vue$/],
-                            transpileOnly: true
-                        }
+                use: {
+                    loader: "ts-loader",
+                    options: {
+                        appendTsSuffixTo: [/\.vue$/],
+                        transpileOnly: true
                     }
-                ]
+                }
             },
             {
                 // HTML
-                // exclude options.html which is processed by HtmlWebpackPlugin
                 test: /\.html$/,
-                exclude: /options\.html$/,
-                use: "html-loader"
+                use: "html-loader",
+                exclude: /options\.html$/
             },
             {
                 // CSS
@@ -67,7 +59,7 @@ module.exports = {
                         loader: "css-loader",
                         options: {
                             // Do not process urls that use a root path
-                            // These may be static resources that do not need
+                            // These are static resources that do not need
                             // to be processed by Webpack (fonts/images etc)
                             url: url => !url.startsWith('/')
                         }
@@ -78,9 +70,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin({
-            cleanStaleWebpackAssets: false
-        }),
+        new CleanWebpackPlugin(),
         new ForkTsCheckerWebpackPlugin({
             async: false,
             typescript: {
@@ -102,31 +92,22 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "[name].css"
         }),
-        new HtmlWebpackPlugin({
-            template: "options.html",
-            filename: "options.html",
-            minify: false,
-            hash: true,
-            chunks: [
-                "options",
-                "options-vendor"
-            ]
-        }),
         new CopyWebpackPlugin({
             patterns: [
-                {from: "manifest.json"},
-                {from: "images", to: "images"},
                 {from: "images/icon-green-128.png", to: "icon-128.png"},
-                {from: "fonts/google", to: "fonts/google"}
+                "options.html",
+                "manifest.json",
+                "images/**/*",
+                "fonts/**/*"
             ]
         }),
         new BundleAnalyzerPlugin({
             analyzerMode: "static",
             openAnalyzer: false
         }),
-        new webpack.ProgressPlugin({
+        new Webpack.ProgressPlugin({
             activeModules: true
-        })
+        }),
     ],
     optimization: {
         minimize: false,
@@ -136,21 +117,21 @@ module.exports = {
                     test: /[\\/]node_modules[\\/]/,
                     name: "background-vendor",
                     chunks: (chunk) => {
-                        return chunk.name !== "content" && chunk.name !== "options";
+                        return chunk.name === "background";
                     }
                 },
                 contentVendor: {
                     test: /[\\/]node_modules[\\/]/,
                     name: "content-vendor",
                     chunks: (chunk) => {
-                        return chunk.name !== "background" && chunk.name !== "options";
+                        return chunk.name === "content";
                     }
                 },
                 optionsVendor: {
                     test: /[\\/]node_modules[\\/]/,
                     name: "options-vendor",
                     chunks: (chunk) => {
-                        return chunk.name !== "background" && chunk.name !== "content";
+                        return chunk.name === "options";
                     }
                 }
             }

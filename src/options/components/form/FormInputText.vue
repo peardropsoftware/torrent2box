@@ -9,8 +9,12 @@
              :class="{ 'border-2 border-red-500': validationErrors, 'border-2 border-green-500': !validationErrors && value }"
              @input="$emit('input', $event.target.value)" />
       <slot></slot>
-      <icon-check v-if="!validationErrors && value" class="form-validation-icon text-green-500"></icon-check>
-      <icon-exclamation v-if="validationErrors" class="form-validation-icon text-red-500"></icon-exclamation>
+      <svg v-if="!validationErrors && value" class="form-validation-icon text-green-500">
+        <use href="/images/svg/check.svg#check" />
+      </svg>
+      <svg v-if="validationErrors" class="form-validation-icon text-red-500">
+        <use href="/images/svg/exclamation.svg#exclamation" />
+      </svg>
     </div>
     <ul class="text-sm text-red-700">
       <li v-for="validationError in validationErrors">{{validationError}}</li>
@@ -22,15 +26,9 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import {Prop} from "vue-property-decorator";
-import IconCheck from "../icons/IconCheck.vue";
-import IconExclamation from "../icons/IconExclamation.vue";
 
 @Component({
-    name: "form-input-text",
-    components: {
-        IconExclamation,
-        IconCheck
-    }
+    name: "form-input-text"
 })
 export default class FormInputText extends Vue {
     @Prop() inputType: "text" | "password" | "email";

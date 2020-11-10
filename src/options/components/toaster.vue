@@ -3,7 +3,9 @@
     <div v-for="toast in toasterService.toastArray"
          class="flex rounded items-center px-6 py-4 mb-2 text-base text-white cursor-pointer"
          :class="toast.cssClass" @click="toasterService.removeToast(toast)">
-      <component :is="toast.iconComponent" class="h-8 w-8 text-white pr-2"></component>
+      <svg class="h-8 w-8 text-white pr-2">
+        <use :href="toast.iconSrc" />
+      </svg>
       {{toast.message}}
     </div>
   </div>

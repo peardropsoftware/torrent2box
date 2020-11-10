@@ -5,21 +5,27 @@
                        :validation-errors="validationErrors.serverUrl"
                        input-type="text"
                        label="Server URL">
-        <icon-server class="form-icon"></icon-server>
+        <svg class="form-icon">
+          <use href="/images/svg/server.svg#server" />
+        </svg>
       </form-input-text>
 
       <form-input-text v-model="formModel.userName"
                        :validation-errors="validationErrors.userName"
                        input-type="text"
                        label="User name">
-        <icon-user class="form-icon"></icon-user>
+        <svg class="form-icon">
+          <use href="/images/svg/user.svg#user" />
+        </svg>
       </form-input-text>
 
       <form-input-text v-model="formModel.password"
                        :validation-errors="validationErrors.password"
                        input-type="password"
                        label="Password">
-        <icon-key class="form-icon"></icon-key>
+        <svg class="form-icon">
+          <use href="/images/svg/key.svg#key" />
+        </svg>
       </form-input-text>
 
       <div class="flex">
@@ -34,11 +40,15 @@
                        :validation-errors="validationErrors.linkMatcher"
                        input-type="text"
                        label="Link matcher (regular expression)">
-        <icon-link class="form-icon"></icon-link>
+        <svg class="form-icon">
+          <use href="/images/svg/link.svg#link" />
+        </svg>
       </form-input-text>
 
       <div class="flex w-full justify-end">
-        <button type="submit" class="rounded bg-blue-400 p-2 text-base text-white hover:bg-blue-500">{{submitButtonText}}</button>
+        <button type="submit" class="rounded bg-blue-400 p-2 text-base text-white hover:bg-blue-500">
+          {{submitButtonText}}
+        </button>
       </div>
     </form>
 
@@ -55,19 +65,11 @@ import {Mixins} from "vue-property-decorator";
 import {OptionsModel} from "../../shared/models/OptionsModel";
 import {ChromeStorage} from "../../shared/services/ChromeStorage";
 import {ToasterService} from "../services/ToasterService";
-import IconServer from "./icons/IconServer.vue";
-import IconUser from "./icons/IconUser.vue";
-import IconKey from "./icons/IconKey.vue";
-import IconLink from "./icons/IconLink.vue";
 
 @Component({
     name: "options-form",
     components: {
-        FormErrorMessage,
-        IconServer,
-        IconUser,
-        IconKey,
-        IconLink
+        FormErrorMessage
     }
 })
 export default class OptionsForm extends Mixins<Form>(FormBase) implements Form {

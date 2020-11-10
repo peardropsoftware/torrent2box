@@ -1,5 +1,8 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
     future: {
+        removeDeprecatedGapUtilities: true,
         purgeLayersByDefault: true,
     },
 
@@ -11,7 +14,8 @@ module.exports = {
     theme: {
         fontFamily: {
             sans: [
-                "Open Sans"
+                "Open Sans",
+                ...defaultTheme.fontFamily.sans
             ]
         }
     },

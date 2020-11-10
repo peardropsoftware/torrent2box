@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col min-h-screen">
+  <div class="flex flex-col min-h-screen antialiased text-gray-900">
     <toaster></toaster>
     <title-bar></title-bar>
     <tabs></tabs>
