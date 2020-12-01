@@ -46,7 +46,7 @@
       </form-input-text>
 
       <div class="flex w-full justify-end">
-        <button type="submit" class="rounded bg-blue-400 p-2 text-base text-white hover:bg-blue-500">
+        <button type="submit" class="rounded bg-blue-400 px-4 py-2 text-base text-white hover:bg-blue-500">
           {{submitButtonText}}
         </button>
       </div>
@@ -109,9 +109,3 @@ export default class OptionsForm extends Mixins<Form>(FormBase) implements Form 
     }
 }
 </script>
-
-<style scoped>
-.form-icon {
-    @apply h-8 w-8 absolute left-0 pl-2 text-gray-300;
-}
-</style>

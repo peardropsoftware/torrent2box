@@ -1,0 +1,7 @@
+.form-icon {
+    @apply h-8 w-8 absolute left-0 pl-2 text-gray-300;
+}
+
+.form-validation-icon {
+    @apply h-8 w-8 absolute right-0 pr-2;
+}

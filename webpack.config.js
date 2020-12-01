@@ -47,8 +47,8 @@ module.exports = {
             {
                 // HTML
                 test: /\.html$/,
-                use: "html-loader",
-                exclude: /options\.html$/
+                exclude: /options\.html$/,
+                use: "html-loader"
             },
             {
                 // CSS

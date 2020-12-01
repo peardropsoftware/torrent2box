@@ -1,6 +1,9 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
-@import "tailwindcss/utilities";
 
-@import "./styles/base-styles.css";
-@import "./styles/fonts-google.css";
+/* Fonts */
+@import "styles/fonts-google.css";
+/* Common */
+@import "styles/form.css";
+
+@import "tailwindcss/utilities";

@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed top-0 right-0 mt-20 mr-6 z-50">
+  <div class="fixed z-50" style="top: 3rem; right: 3rem;">
     <div v-for="toast in toasterService.toastArray"
          class="flex rounded items-center px-6 py-4 mb-2 text-base text-white cursor-pointer"
          :class="toast.cssClass" @click="toasterService.removeToast(toast)">

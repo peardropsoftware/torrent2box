@@ -37,9 +37,3 @@ export default class FormInputText extends Vue {
     @Prop() label: string;
 }
 </script>
-
-<style scoped>
-.form-validation-icon {
-    @apply h-8 w-8 absolute right-0 pr-2;
-}
-</style>

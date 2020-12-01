@@ -1,4 +1,7 @@
 # Changelog
+#### v0.0.12
+Minor CSS fixes<br/>
+Updated dependencies<br/>
 #### v0.0.11
 Extracted SVG images into own files<br/>
 Removed html-webpack-plugin<br/>

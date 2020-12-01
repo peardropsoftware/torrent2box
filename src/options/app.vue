@@ -1,10 +1,12 @@
 <template>
-  <div class="flex flex-col min-h-screen antialiased text-gray-900">
-    <toaster></toaster>
-    <title-bar></title-bar>
-    <tabs></tabs>
-    <div class="flex-grow"></div>
-    <sticky-footer></sticky-footer>
+  <div class="antialiased font-sans text-gray-900 bg-gray-300">
+    <div class="flex flex-col min-h-screen">
+      <toaster></toaster>
+      <title-bar></title-bar>
+      <tabs></tabs>
+      <div class="flex-grow"></div>
+      <sticky-footer></sticky-footer>
+    </div>
   </div>
 </template>
 

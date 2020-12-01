@@ -4,7 +4,7 @@
     <!-- tabs column -->
     <div class="col-span-5 md:col-span-3 bg-gray-200 m-4">
       <!-- tab headers -->
-      <ul class="flex bg-gray-400">
+      <ul class="flex bg-gray-300">
         <li v-for="tab of tabs"
             class="p-2 cursor-pointer border border-transparent"
             :class="{ 'bg-gray-200': isTabActive(tab), 'bg-blue-200 hover:bg-gray-200 hover:border-black hover:border-dotted hover:border-b': !isTabActive(tab) }"
