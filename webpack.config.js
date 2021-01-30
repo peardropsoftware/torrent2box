@@ -116,6 +116,7 @@ module.exports = {
                 backgroundVendor: {
                     test: /[\\/]node_modules[\\/]/,
                     name: "background-vendor",
+                    enforce: true,
                     chunks: (chunk) => {
                         return chunk.name === "background";
                     }
@@ -123,6 +124,7 @@ module.exports = {
                 contentVendor: {
                     test: /[\\/]node_modules[\\/]/,
                     name: "content-vendor",
+                    enforce: true,
                     chunks: (chunk) => {
                         return chunk.name === "content";
                     }
@@ -130,6 +132,7 @@ module.exports = {
                 optionsVendor: {
                     test: /[\\/]node_modules[\\/]/,
                     name: "options-vendor",
+                    enforce: true,
                     chunks: (chunk) => {
                         return chunk.name === "options";
                     }
