@@ -1,4 +1,6 @@
 # Changelog
+#### v0.0.13
+Updated dependencies<br/>
 #### v0.0.12
 Minor CSS fixes<br/>
 Updated dependencies<br/>
