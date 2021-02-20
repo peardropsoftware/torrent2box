@@ -8,4 +8,4 @@ Vue.config.productionTip = false;
 Vue.filter("paramCase", paramCase);
 Vue.directive("focus", {inserted: focusDirective});
 const appComponent = new App();
-appComponent.$mount('#app')
+appComponent.$mount("#app");

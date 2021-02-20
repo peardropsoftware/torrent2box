@@ -1,52 +1,55 @@
 module.exports = {
     root: true,
     env: {
-        node: true,
         browser: true,
         webextensions: true
     },
-    ignorePatterns: [
-        "/options.html",
-        "/**/*.js"
+    extends: [
+        "eslint:recommended",
+        "plugin:vue/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
     ],
     parser: "vue-eslint-parser",
     parserOptions: {
         parser: "@typescript-eslint/parser",
-        extraFileExtensions: [".vue"]
+        extraFileExtensions: [".vue"],
+        project: "./tsconfig.json"
     },
     plugins: [
         "@typescript-eslint",
         "vue"
     ],
-    extends: [
-        "eslint:recommended",
-        "plugin:vue/recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended"
+    ignorePatterns: [
+        ".eslintrc.js"
     ],
     rules: {
-        "no-control-regex": "off",
+        // Style - Enable
+        "quotes": ["error", "double"],
+        "semi": ["error", "always"],
+        // NodeJs - Enable
         "require-await": "error",
         "no-return-await": "error",
-        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "error",
+        // NodeJs - Disable
         "@typescript-eslint/no-unused-vars": "off",
-        "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/member-delimiter-style": "off",
-        "@typescript-eslint/no-unsafe-member-access": "off",
-        "@typescript-eslint/no-unsafe-call": "off",
-        "@typescript-eslint/no-unsafe-assignment": "off",
-        "@typescript-eslint/ban-types": "off",
-        "@typescript-eslint/restrict-template-expressions": "off",
         "@typescript-eslint/no-inferrable-types": "off",
-        "@typescript-eslint/explicit-module-boundary-types": ["error", {"allowArgumentsExplicitlyTypedAsAny": true}],
-        // Vue
-        "vue/max-attributes-per-line": "off",
-        "vue/html-closing-bracket-newline": "off",
-        "vue/html-self-closing": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/restrict-template-expressions": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/unbound-method": ["error", {"ignoreStatic": true}],
+        // Vue - Enable
+        "vue/name-property-casing": ["error", "kebab-case"],
         "vue/mustache-interpolation-spacing": ["error", "never"],
+        // Vue - Disable
+        "vue/html-self-closing": "off",
         "vue/singleline-html-element-content-newline": "off",
         "vue/multiline-html-element-content-newline": "off",
+        "vue/max-attributes-per-line": "off",
+        "vue/html-closing-bracket-newline": "off",
         "vue/require-v-for-key": "off",
-        "vue/name-property-casing": ["error", "kebab-case"]
     }
 };

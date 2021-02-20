@@ -11,7 +11,7 @@ export function blobToBuffer(blob: Blob): Promise<Buffer> {
 
         fileReader.onerror = (event) => {
             fileReader.abort();
-        }
+        };
 
         fileReader.readAsArrayBuffer(blob);
     });

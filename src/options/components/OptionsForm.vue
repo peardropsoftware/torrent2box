@@ -84,7 +84,7 @@ export default class OptionsForm extends Mixins<Form>(FormBase) implements Form 
                 await ChromeStorage.save(this.formModel);
                 this.toasterService.success("Options saved");
             } else {
-                this.toasterService.error("Invalid options")
+                this.toasterService.error("Invalid options");
             }
         } catch (error) {
             this.errorMessage = error.message;

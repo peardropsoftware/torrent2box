@@ -6,7 +6,7 @@ import {Torrent} from "./services/Torrent";
 import buffer from "buffer";
 (window as any).Buffer = buffer.Buffer;
 
-chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message, sender, sendResponse): void => {
     if (!message.actionType) {
         throw new Error("No action specified");
     }
@@ -18,13 +18,14 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
                     action: ActionType.Message,
                     text: "pong"
                 });
+
                 return;
             }
 
             console.log(`[torrent2box - content] ${message.text}`);
             break;
         case ActionType.AddTorrent:
-            await Torrent.addTorrent(new URL(message.torrentUrl));
+            void Torrent.addTorrent(new URL(message.torrentUrl));
             break;
         default:
             throw new Error("Invalid action type");
