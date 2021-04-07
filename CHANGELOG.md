@@ -1,4 +1,11 @@
 # Changelog
+#### v0.0.14
+Improved default link matcher regular expression<br/>
+Switched to Tailwind JIT compiler<br/>
+Added close button to Chrome notifications<br/>
+Extended Chrome notification timeout<br/>
+Removed some unused CSS<br/>
+Updated dependencies<br/>
 #### v0.0.13
 Updated dependencies<br/>
 #### v0.0.12

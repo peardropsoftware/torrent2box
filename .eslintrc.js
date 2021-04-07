@@ -21,7 +21,10 @@ module.exports = {
         "vue"
     ],
     ignorePatterns: [
-        ".eslintrc.js"
+        ".eslintrc.js",
+        "postcss.js",
+        "tailwind.config.js",
+        "webpack.config.js"
     ],
     rules: {
         // Style - Enable

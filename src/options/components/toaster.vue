@@ -23,12 +23,3 @@
         toasterService: ToasterService = new ToasterService();
     }
 </script>
-
-<style scoped>
-#toaster {
-    position: fixed;
-    top: 5.5rem;
-    right: 0;
-    z-index: 100;
-}
-</style>

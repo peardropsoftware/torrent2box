@@ -33,6 +33,6 @@ export class OptionsModel {
     }
 
     getDefaultLinkMatcher(): string {
-        return "(\\.torrent\\b|torrents\\.php\\?action=download)";
+        return "(\\.torrent\\b|torrents\\.php\\?action=download|\\/torrent\\/download)";
     }
 }

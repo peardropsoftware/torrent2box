@@ -18,7 +18,7 @@
         </li>
       </ul>
       <!-- tab content -->
-      <component :is="dynamicComponent" class="t2b-shadow p-8"></component>
+      <component :is="dynamicComponent" class="shadow-lg p-8"></component>
     </div>
     <div><!-- Spacer column --></div>
   </div>
@@ -58,9 +58,3 @@ export default class Tabs extends Vue {
     }
 }
 </script>
-
-<style lang="css">
-.t2b-shadow {
-    box-shadow: 10px 10px 8px rgba(136, 136, 136, 1);
-}
-</style>

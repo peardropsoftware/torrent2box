@@ -25,7 +25,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse): void => {
             console.log(`[torrent2box - content] ${message.text}`);
             break;
         case ActionType.AddTorrent:
-            void Torrent.addTorrent(new URL(message.torrentUrl));
+            Torrent.addTorrent(new URL(message.torrentUrl))
+                .catch(reason => console.error(reason));
             break;
         default:
             throw new Error("Invalid action type");

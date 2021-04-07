@@ -1,6 +1,7 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
+    mode: "jit",
     purge: [
         "./options.html",
         "./src/**/*.vue",
@@ -13,10 +14,5 @@ module.exports = {
                 ...defaultTheme.fontFamily.sans
             ]
         }
-    },
-    variants: {
-        borderRadius: ["responsive", "hover"],
-        borderStyle: ["responsive", "hover"],
-        borderWidth: ["responsive", "hover"]
     }
 }

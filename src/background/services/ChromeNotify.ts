@@ -8,9 +8,10 @@ export abstract class ChromeNotify {
             title: "[torrent2box]",
             iconUrl: iconType,
             type: "basic",
-            message: body
+            message: body,
+            requireInteraction: true
         }, (notificationId) => {
-            setTimeout(() => chrome.notifications.clear(notificationId), 5000);
+            setTimeout(() => chrome.notifications.clear(notificationId), 8000);
         });
     }
 }
