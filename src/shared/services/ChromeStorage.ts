@@ -8,11 +8,11 @@ export class ChromeStorage {
                     return reject(chrome.runtime.lastError);
                 }
 
-                if (!items.torrent2box) {
+                if (!items["torrent2box"]) {
                     return reject(new Error("Storage is empty"));
                 }
 
-                return resolve(Object.assign(new OptionsModel(), JSON.parse(items.torrent2box)));
+                return resolve(Object.assign(new OptionsModel(), JSON.parse(items["torrent2box"])));
             });
         });
     }

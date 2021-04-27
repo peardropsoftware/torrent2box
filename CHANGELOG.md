@@ -1,4 +1,9 @@
 # Changelog
+#### v0.0.15
+Removed close button on Chrome notifications<br/>
+(this was causing a bug where some notifications were not cleared)<br/>
+Tidied up component filename casing<br/>
+Updated dependencies<br/>
 #### v0.0.14
 Improved default link matcher regular expression<br/>
 Switched to Tailwind JIT compiler<br/>

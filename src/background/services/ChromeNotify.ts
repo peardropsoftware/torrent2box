@@ -9,9 +9,9 @@ export abstract class ChromeNotify {
             iconUrl: iconType,
             type: "basic",
             message: body,
-            requireInteraction: true
+            requireInteraction: false
         }, (notificationId) => {
-            setTimeout(() => chrome.notifications.clear(notificationId), 8000);
+            setTimeout(() => chrome.notifications.clear(notificationId), 6000);
         });
     }
 }
