@@ -1,4 +1,6 @@
 # Changelog
+#### v0.0.16
+Updated dependencies<br/>
 #### v0.0.15
 Removed close button on Chrome notifications<br/>
 (this was causing a bug where some notifications were not cleared)<br/>
