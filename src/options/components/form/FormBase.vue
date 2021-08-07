@@ -26,13 +26,13 @@ export default class BaseForm extends Vue implements Form {
     @Watch("formModel", {immediate: true, deep: true})
     async onFormModelChanged(newVal: Record<string, any>): Promise<void> {
         // console.log("form-base - onFormModelChanged()");
-        this.validationErrors = await MetaValidator.validate(newVal, {isSkipMissingProperties: this.isSkipMissingProperties});
+        this.validationErrors = await new MetaValidator().validate(newVal, {isSkipMissingProperties: this.isSkipMissingProperties});
     }
 
     async isFormValid(): Promise<boolean> {
         // console.log("form-base - isFormValid()");
         this.isSkipMissingProperties = false;
-        this.validationErrors = await MetaValidator.validate(this.formModel, {isSkipMissingProperties: this.isSkipMissingProperties});
+        this.validationErrors = await new MetaValidator().validate(this.formModel, {isSkipMissingProperties: this.isSkipMissingProperties});
         return (Object.keys(this.validationErrors).length === 0);
     }
 

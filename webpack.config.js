@@ -54,14 +54,15 @@ module.exports = {
                 // CSS
                 test: /\.css$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
-                    {
+                    MiniCssExtractPlugin.loader, {
                         loader: "css-loader",
                         options: {
                             // Do not process urls that use a root path
-                            // These are static resources that do not need
+                            // These may be static resources that do not need
                             // to be processed by Webpack (fonts/images etc)
-                            url: url => !url.startsWith('/')
+                            url: {
+                                filter: url => !url.startsWith("/")
+                            }
                         }
                     },
                     "postcss-loader"

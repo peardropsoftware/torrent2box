@@ -1,7 +1,7 @@
 import {decode} from "bencode";
 import {IconType} from "../../shared/enums/IconType";
 import {ChromeStorage} from "../../shared/services/ChromeStorage";
-import {fetchNoHooks} from "../utilities/fetch-instance";
+import {webFetchNoHooks} from "../utilities/web-fetch-no-hooks";
 import {ChromeNotify} from "./ChromeNotify";
 import {OptionsModel} from "../../shared/models/OptionsModel";
 import {httpStatusTextByCode} from "http-status-ts";
@@ -25,7 +25,7 @@ export abstract class Torrent {
     static async sendDataToSeedBox(options: OptionsModel, formData: FormData, torrentName: string): Promise<void> {
         try {
             const base64Credentials = btoa(`${options.userName}:${options.password}`);
-            const response = await fetchNoHooks.post(options.getServerAddTorrentUrl().href, {
+            const response = await webFetchNoHooks.post(options.getServerAddTorrentUrl().href, {
                 body: formData,
                 headers: {
                     "Authorization": `Basic ${base64Credentials}`
@@ -93,7 +93,7 @@ export abstract class Torrent {
 
         try {
             // Download torrent file
-            const response = await fetchNoHooks.get(torrentUrl.href);
+            const response = await webFetchNoHooks.get(torrentUrl.href);
             const result = await response.blob();
 
             // Success
