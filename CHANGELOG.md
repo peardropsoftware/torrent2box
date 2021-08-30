@@ -1,4 +1,8 @@
 # Changelog
+#### v0.0.18
+Switched to ES2020<br/>
+Refactored tsconfig.json<br/>
+Updated dependencies<br/>
 #### v0.0.17
 Added better fetch error handling<br/>
 Updated dependencies<br/>

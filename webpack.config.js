@@ -65,7 +65,19 @@ module.exports = {
                             }
                         }
                     },
-                    "postcss-loader"
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            postcssOptions: (loaderContext) => {
+                                return {
+                                    plugins: [
+                                        "postcss-import",
+                                        "tailwindcss",
+                                    ],
+                                };
+                            }
+                        }
+                    }
                 ]
             }
         ]
@@ -109,6 +121,9 @@ module.exports = {
         new Webpack.ProgressPlugin({
             activeModules: true
         }),
+        new Webpack.ProvidePlugin({
+            Buffer: ["buffer", "Buffer"],
+        })
     ],
     optimization: {
         minimize: false,

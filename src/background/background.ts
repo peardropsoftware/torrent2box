@@ -2,10 +2,6 @@ import {ActionType} from "../shared/enums/ActionType";
 import InstalledDetails = chrome.runtime.InstalledDetails;
 import {Torrent} from "./services/Torrent";
 
-// Buffer polyfill
-import buffer from "buffer";
-(window as any).Buffer = buffer.Buffer;
-
 chrome.runtime.onMessage.addListener((message, sender, sendResponse): void => {
     if (!message.actionType) {
         throw new Error("No action specified");
