@@ -40,10 +40,10 @@ export abstract class Torrent {
             }
 
             // Error
-            const httpErrorText = `Error ${response.status}: ${httpStatusTextByCode(response.status)}`;
             if (response.ok) {
-                ChromeNotify.createNotification(IconType.Error, result ? result : httpErrorText);
+                ChromeNotify.createNotification(IconType.Error, result ? result : "Error sending torrent data to seedbox");
             } else {
+                const httpErrorText = `Error ${response.status}: ${httpStatusTextByCode(response.status)}`;
                 ChromeNotify.createNotification(IconType.Error, httpErrorText);
             }
         } catch (error) {

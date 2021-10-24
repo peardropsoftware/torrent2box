@@ -14,7 +14,8 @@ module.exports = {
     parserOptions: {
         parser: "@typescript-eslint/parser",
         extraFileExtensions: [".vue"],
-        project: "./tsconfig.json"
+        tsconfigRootDir: __dirname,
+        project: "tsconfig.json",
     },
     plugins: [
         "@typescript-eslint",
@@ -40,6 +41,7 @@ module.exports = {
         "@typescript-eslint/no-unsafe-member-access": "off",
         "@typescript-eslint/no-unsafe-assignment": "off",
         "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-argument": "off",
         "@typescript-eslint/restrict-template-expressions": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/no-explicit-any": "off",

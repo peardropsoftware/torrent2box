@@ -1,14 +1,16 @@
-const path = require("path");
-const Webpack = require("webpack");
-const {CleanWebpackPlugin} = require("clean-webpack-plugin");
-const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const VueLoaderPlugin = require("vue-loader/lib/plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
+/// <reference types="./webpack-config" />
+// https://github.com/TypeStrong/ts-node#help-my-types-are-missing
+import path from "path";
+import {Configuration, ProvidePlugin, ProgressPlugin} from "webpack";
+import VueLoaderPlugin from "vue-loader/lib/plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import CopyWebpackPlugin from "copy-webpack-plugin";
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+import {CleanWebpackPlugin} from "clean-webpack-plugin";
+import BundleAnalyzerPlugin from "webpack-bundle-analyzer/lib/BundleAnalyzerPlugin";
 
-module.exports = {
-    mode: process.env.NODE_ENV,
+const webpackConfig: Configuration = {
+    mode: process.env["NODE_ENV"] as any,
     target: "web",
     entry: {
         background: "./src/background/background.ts",
@@ -61,20 +63,18 @@ module.exports = {
                             // These may be static resources that do not need
                             // to be processed by Webpack (fonts/images etc)
                             url: {
-                                filter: url => !url.startsWith("/")
+                                filter: (url: string) => !url.startsWith("/")
                             }
                         }
                     },
                     {
                         loader: "postcss-loader",
                         options: {
-                            postcssOptions: (loaderContext) => {
-                                return {
-                                    plugins: [
-                                        "postcss-import",
-                                        "tailwindcss",
-                                    ],
-                                };
+                            postcssOptions: {
+                                plugins: [
+                                    "postcss-import",
+                                    "tailwindcss",
+                                ],
                             }
                         }
                     }
@@ -97,7 +97,7 @@ module.exports = {
                     "./src/**/*.{ts,vue}",
                 ],
                 options: {
-                    configFile: "./.eslintrc.js"
+                    overrideConfigFile: "./.eslintrc.js"
                 }
             }
         }),
@@ -118,10 +118,10 @@ module.exports = {
             analyzerMode: "static",
             openAnalyzer: false
         }),
-        new Webpack.ProgressPlugin({
+        new ProgressPlugin({
             activeModules: true
         }),
-        new Webpack.ProvidePlugin({
+        new ProvidePlugin({
             Buffer: ["buffer", "Buffer"],
         })
     ],
@@ -165,3 +165,5 @@ module.exports = {
         extensions: [".ts", ".js", ".vue"],
     }
 };
+
+export default webpackConfig;

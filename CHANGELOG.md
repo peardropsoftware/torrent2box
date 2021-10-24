@@ -1,4 +1,7 @@
 # Changelog
+#### v0.0.19
+Switched Webpack config to TypeScript<br/>
+Updated dependencies<br/>
 #### v0.0.18
 Switched to ES2020<br/>
 Refactored tsconfig.json<br/>
