@@ -1,15 +1,14 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
-    mode: "jit",
-    purge: [
+    content: [
         "./options.html",
         "./src/**/*.{ts,vue}",
     ],
     theme: {
         fontFamily: {
             sans: [
-                "Open Sans",
+                "Poppins",
                 ...defaultTheme.fontFamily.sans
             ]
         }

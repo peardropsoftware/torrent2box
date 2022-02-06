@@ -1,0 +1,19 @@
+input, textarea {
+    @apply border rounded p-1;
+}
+
+button, input[type=button], input[type=submit] {
+    @apply border p-1 shadow;
+}
+
+input[type=checkbox] {
+    @apply transform scale-150;
+}
+
+.tb-form-validation-icon {
+    @apply h-8 w-8 absolute right-0 pr-2;
+}
+
+.tb-form-input-icon {
+    @apply h-8 w-8 absolute left-0 pl-2 text-gray-500;
+}

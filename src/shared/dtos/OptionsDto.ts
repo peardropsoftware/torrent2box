@@ -1,6 +1,6 @@
 import {IsNotEmpty, IsRegEx, IsUrl} from "meta-validator";
 
-export class OptionsModel {
+export class OptionsDto {
     @IsNotEmpty()
     @IsUrl()
     serverUrl: string;

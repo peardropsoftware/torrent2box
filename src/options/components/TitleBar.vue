@@ -1,3 +1,22 @@
+<script lang="ts">
+import {defineComponent, onMounted, Ref, ref} from "vue";
+
+export default defineComponent({
+    name: "TitleBar",
+    setup() {
+        const version: Ref<string> = ref("");
+
+        onMounted(() => {
+            version.value = chrome.runtime.getManifest().version;
+        });
+
+        return {
+            version
+        };
+    }
+});
+</script>
+
 <template>
   <div class="flex items-center justify-center p-5 border-black border-b bg-blue-300">
     <div>
@@ -9,19 +28,3 @@
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
-
-@Component({
-    name: "title-bar"
-})
-export default class TitleBar extends Vue {
-    version: string = "";
-
-    mounted(): void {
-        this.version = chrome.runtime.getManifest().version;
-    }
-}
-</script>

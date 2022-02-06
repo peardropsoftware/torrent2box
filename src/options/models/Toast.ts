@@ -1,4 +1,4 @@
-export class ToastModel {
+export class Toast {
     message: string;
     cssClass: string;
     iconSrc: string;

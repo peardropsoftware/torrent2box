@@ -1,19 +1,55 @@
+<script lang="ts">
+import {computed, defineComponent, PropType} from "vue";
+import {ValidationErrors} from "meta-validator";
+
+export default defineComponent({
+    name: "FormInputText",
+    props: {
+        inputType: {
+            type: String,
+        },
+        modelValue: {
+            type: String,
+        },
+        validationErrors: {
+            type: Array as PropType<ValidationErrors[]>,
+        },
+        label: {
+            type: String,
+        }
+    },
+    setup(props, context) {
+        const inputCssObject = computed(() => {
+            return {
+                "border-2 border-red-500": props.validationErrors,
+                "border-2 border-green-500": !props.validationErrors && props.modelValue,
+                "px-10": context.slots["default"],
+                "px-2": !context.slots["default"]
+            };
+        });
+
+        return {
+            inputCssObject
+        };
+    }
+});
+</script>
+
 <template>
   <div class="mb-4">
-    <label class="text-base font-bold" :for="label | paramCase">{{label}}</label>
+    <label class="font-semibold">{{label}}</label>
     <div class="flex items-center relative">
-      <input :id="label | paramCase"
-             class="w-full py-1 px-10 text-base rounded my-1"
+      <input class="w-full py-2 border-2 text-base rounded"
              :type="inputType"
-             :value="value"
-             :class="{ 'border-2 border-red-500': validationErrors, 'border-2 border-green-500': !validationErrors && value }"
-             @input="$emit('input', $event.target.value)" />
+             :value="modelValue"
+             :class="inputCssObject"
+             @input="$emit('update:modelValue', $event.target.value)" />
       <slot></slot>
-      <svg v-if="!validationErrors && value" class="form-validation-icon text-green-500">
-        <use href="/images/svg/check.svg#check" />
+      <svg v-if="!validationErrors && modelValue" class="tb-form-validation-icon text-green-500">
+        <use href="/images/icons/check-circle-solid.svg#check-circle-solid" />
       </svg>
-      <svg v-if="validationErrors" class="form-validation-icon text-red-500">
-        <use href="/images/svg/exclamation.svg#exclamation" />
+      <svg v-if="validationErrors" class="tb-form-validation-icon text-red-500">
+        <use href="/images/icons/exclamation-circle-solid.svg#exclamation-circle-solid" />
       </svg>
     </div>
     <ul class="text-sm text-red-700">
@@ -21,19 +57,3 @@
     </ul>
   </div>
 </template>
-
-<script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
-import {Prop} from "vue-property-decorator";
-
-@Component({
-    name: "form-input-text"
-})
-export default class FormInputText extends Vue {
-    @Prop() inputType: "text" | "password" | "email";
-    @Prop() value: string;
-    @Prop() validationErrors: string[];
-    @Prop() label: string;
-}
-</script>

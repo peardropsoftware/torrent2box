@@ -3,7 +3,7 @@ import {IconType} from "../../shared/enums/IconType";
 import {ChromeStorage} from "../../shared/services/ChromeStorage";
 import {webFetchNoHooks} from "../utilities/web-fetch-no-hooks";
 import {ChromeNotify} from "./ChromeNotify";
-import {OptionsModel} from "../../shared/models/OptionsModel";
+import {OptionsDto} from "../../shared/dtos/OptionsDto";
 import {httpStatusTextByCode} from "http-status-ts";
 import {blobToBuffer} from "../utilities/blob-to-buffer";
 
@@ -22,7 +22,7 @@ export abstract class Torrent {
         return "Nameless torrent file";
     }
 
-    static async sendDataToSeedBox(options: OptionsModel, formData: FormData, torrentName: string): Promise<void> {
+    static async sendDataToSeedBox(options: OptionsDto, formData: FormData, torrentName: string): Promise<void> {
         try {
             const base64Credentials = btoa(`${options.userName}:${options.password}`);
             const response = await webFetchNoHooks.post(options.getServerAddTorrentUrl().href, {
@@ -60,7 +60,7 @@ export abstract class Torrent {
         await Torrent.sendDataToSeedBox(options, formData, torrentName);
     }
 
-    static async sendMagnetToSeedBox(options: OptionsModel, magnetUrl: URL): Promise<void> {
+    static async sendMagnetToSeedBox(options: OptionsDto, magnetUrl: URL): Promise<void> {
         const formData = new FormData();
 
         // Extract torrent name from magnet url

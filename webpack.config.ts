@@ -1,8 +1,8 @@
 /// <reference types="./webpack-config" />
 // https://github.com/TypeStrong/ts-node#help-my-types-are-missing
 import path from "path";
-import {Configuration, ProvidePlugin, ProgressPlugin} from "webpack";
-import VueLoaderPlugin from "vue-loader/lib/plugin";
+import {Configuration, ProvidePlugin, ProgressPlugin, DefinePlugin} from "webpack";
+import {VueLoaderPlugin} from "vue-loader";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
@@ -27,13 +27,7 @@ const webpackConfig: Configuration = {
             {
                 // Vue single file components
                 test: /\.vue$/,
-                use: {
-                    loader: "vue-loader",
-                    options: {
-                        hotReload: false,
-                        productionMode: true
-                    }
-                }
+                use: ["vue-loader"]
             },
             {
                 // TypeScript
@@ -84,22 +78,21 @@ const webpackConfig: Configuration = {
     },
     plugins: [
         new CleanWebpackPlugin(),
+        new DefinePlugin({
+            __VUE_OPTIONS_API__: false,
+            __VUE_PROD_DEVTOOLS__: false
+        }),
         new ForkTsCheckerWebpackPlugin({
             async: false,
             typescript: {
                 extensions: {
-                    vue: true
+                    vue: {
+                        enabled: true,
+                        compiler: "vue/compiler-sfc"
+                    }
                 },
                 mode: "readonly"
             },
-            eslint: {
-                files: [
-                    "./src/**/*.{ts,vue}",
-                ],
-                options: {
-                    overrideConfigFile: "./.eslintrc.js"
-                }
-            }
         }),
         new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
@@ -158,7 +151,7 @@ const webpackConfig: Configuration = {
     },
     resolve: {
         alias: {
-            "vue$": "vue/dist/vue.esm.js",
+            "vue$": "vue/dist/vue.runtime.esm-bundler.js",
             // Buffer polyfill
             "buffer$": "buffer/index.js"
         },

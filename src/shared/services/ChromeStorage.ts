@@ -1,8 +1,8 @@
-import {OptionsModel} from "../models/OptionsModel";
+import {OptionsDto} from "../dtos/OptionsDto";
 
 export class ChromeStorage {
-    static load(): Promise<OptionsModel> {
-        return new Promise<OptionsModel>((resolve, reject) => {
+    static load(): Promise<OptionsDto> {
+        return new Promise<OptionsDto>((resolve, reject) => {
             chrome.storage.local.get("torrent2box", (items) => {
                 if (chrome.runtime.lastError) {
                     return reject(chrome.runtime.lastError);
@@ -12,12 +12,12 @@ export class ChromeStorage {
                     return reject(new Error("Storage is empty"));
                 }
 
-                return resolve(Object.assign(new OptionsModel(), JSON.parse(items["torrent2box"])));
+                return resolve(Object.assign(new OptionsDto(), JSON.parse(items["torrent2box"])));
             });
         });
     }
 
-    static save(payload: OptionsModel): Promise<void> {
+    static save(payload: OptionsDto): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             chrome.storage.local.set({
                 torrent2box: JSON.stringify(payload)

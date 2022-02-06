@@ -2,8 +2,14 @@
 @import "tailwindcss/components";
 
 /* Fonts */
-@import "styles/fonts-google.css";
-/* Common */
-@import "styles/form.css";
+@import "./css/font-poppins.css";
+/* Global */
+@import "./css/form.css";
 
 @import "tailwindcss/utilities";
+
+/* Chrome injects a stylesheet that sets the default font-size for extensions to 75% */
+/* https://stackoverflow.com/a/36778864 */
+body {
+    font-size: initial;
+}

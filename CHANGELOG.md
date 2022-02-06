@@ -1,4 +1,7 @@
 # Changelog
+#### v0.0.20
+Upgraded to Vue 3<br/>
+Updated all other dependencies<br/>
 #### v0.0.19
 Switched Webpack config to TypeScript<br/>
 Updated dependencies<br/>

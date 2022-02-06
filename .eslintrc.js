@@ -47,7 +47,7 @@ module.exports = {
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/unbound-method": ["error", {"ignoreStatic": true}],
         // Vue - Enable
-        "vue/name-property-casing": ["error", "kebab-case"],
+        "vue/name-property-casing": ["error", "PascalCase"],
         "vue/mustache-interpolation-spacing": ["error", "never"],
         // Vue - Disable
         "vue/html-self-closing": "off",
@@ -56,5 +56,8 @@ module.exports = {
         "vue/max-attributes-per-line": "off",
         "vue/html-closing-bracket-newline": "off",
         "vue/require-v-for-key": "off",
+        "vue/first-attribute-linebreak": "off",
+        "vue/require-default-prop": "off",
+        "vue/multi-word-component-names": "off",
     }
 };

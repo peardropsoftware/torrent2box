@@ -1,3 +1,11 @@
+<script lang="ts">
+import {defineComponent} from "vue";
+
+export default defineComponent({
+    name: "Information",
+});
+</script>
+
 <template>
   <div>
     <h1 class="text-2xl font-semibold">Help</h1>
@@ -12,16 +20,3 @@
       (Creative Commons).</p>
   </div>
 </template>
-
-<script lang="ts">
-    import Vue from "vue";
-    import Component from "vue-class-component";
-
-    @Component({
-        name: "information"
-    })
-    export default class Information extends Vue {
-        // Empty
-    }
-</script>
-
