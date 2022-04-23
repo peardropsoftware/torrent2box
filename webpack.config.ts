@@ -122,6 +122,8 @@ const webpackConfig: Configuration = {
         minimize: false,
         splitChunks: {
             cacheGroups: {
+                /*
+                // Manifest v3 doesn't seem to support bundle splitting
                 backgroundVendor: {
                     test: /[\\/]node_modules[\\/]/,
                     name: "background-vendor",
@@ -130,6 +132,7 @@ const webpackConfig: Configuration = {
                         return chunk.name === "background";
                     }
                 },
+                */
                 contentVendor: {
                     test: /[\\/]node_modules[\\/]/,
                     name: "content-vendor",

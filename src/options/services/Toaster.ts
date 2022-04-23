@@ -23,7 +23,7 @@ export abstract class Toaster {
     static addToast(toast: Toast): void {
         Toaster.toasts.value.push(toast);
         setTimeout(() => {
-            // Toaster.removeToast(toast);
+            Toaster.removeToast(toast);
         }, 6000);
     }
 

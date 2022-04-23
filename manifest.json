@@ -1,30 +1,42 @@
 {
-	"manifest_version": 2,
-	"name": "torrent2box",
-	"version": "0.0.20",
-	"description": "Upload torrents from your browser to your ruTorrent seedbox.",
-	"icons": {
-		"16":"images/icon-green-16.png",
-		"48":"images/icon-green-48.png",
-		"128":"images/icon-green-128.png"
-	},
-	"background": {
-		"scripts": ["background-vendor.js", "background.js"]
-	},
-	"content_scripts": [
-		{
-			"matches": ["<all_urls>"],
-			"js": ["content-vendor.js", "content.js"],
-			"run_at": "document_idle"
-		}
-	],
-	"options_page": "options.html",
-	"permissions": [
-		"storage",
-		"notifications"
-	],
-	"web_accessible_resources": [
-		"images/icon-green-48.png",
-		"images/icon-red-48.png"
-	]
+  "manifest_version": 3,
+  "name": "torrent2box",
+  "version": "0.0.21",
+  "description": "Upload torrents from your browser to your ruTorrent seedbox.",
+  "icons": {
+    "16": "images/icon-green-16.png",
+    "48": "images/icon-green-48.png",
+    "128": "images/icon-green-128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content-vendor.js",
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_page": "options.html",
+  "permissions": [
+    "storage",
+    "notifications"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "images/icon-green-48.png",
+        "images/icon-red-48.png"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
 }

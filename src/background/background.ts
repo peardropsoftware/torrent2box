@@ -27,6 +27,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse): void => {
         default:
             throw new Error("Invalid action type");
     }
+
+    // chrome.runtime.onMessage.addListener must always send a response
+    // https://stackoverflow.com/a/71520415
+    sendResponse();
 });
 
 chrome.runtime.onInstalled.addListener((details: InstalledDetails) => {

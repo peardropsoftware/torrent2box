@@ -29,7 +29,7 @@ module.exports = {
     ],
     rules: {
         // Style - Enable
-        "quotes": ["error", "double"],
+        "quotes": ["error", "double", { "allowTemplateLiterals": true }],
         "semi": ["error", "always"],
         // NodeJs - Enable
         "require-await": "error",

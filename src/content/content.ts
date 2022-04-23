@@ -11,7 +11,7 @@ function waitForBackground(): void {
         }
 
         // console.log("[torrent2box - content] Connected to background");
-        chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+        chrome.runtime.onMessage.addListener((message, sender, sendResponse): void => {
             if (!message.actionType) {
                 throw new Error("No action specified");
             }
@@ -25,6 +25,10 @@ function waitForBackground(): void {
                 default:
                     throw new Error("Invalid action type");
             }
+
+            // chrome.runtime.onMessage.addListener must always send a response
+            // https://stackoverflow.com/a/71520415
+            sendResponse();
         });
 
         ChromeStorage.load().then((result) => {

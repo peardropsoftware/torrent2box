@@ -1,4 +1,8 @@
 # Changelog
+#### v0.0.21
+Updated extension to manifest v3<br/>
+Fixed toast messages on options page not clearing<br/>
+Updated dependencies<br/>
 #### v0.0.20
 Upgraded to Vue 3<br/>
 Updated all other dependencies<br/>

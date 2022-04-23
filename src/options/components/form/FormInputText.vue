@@ -46,10 +46,10 @@ export default defineComponent({
              @input="$emit('update:modelValue', $event.target.value)" />
       <slot></slot>
       <svg v-if="!validationErrors && modelValue" class="tb-form-validation-icon text-green-500">
-        <use href="/images/icons/check-circle-solid.svg#check-circle-solid" />
+        <use href="/images/icons/check.svg#check" />
       </svg>
       <svg v-if="validationErrors" class="tb-form-validation-icon text-red-500">
-        <use href="/images/icons/exclamation-circle-solid.svg#exclamation-circle-solid" />
+        <use href="/images/icons/exclamation.svg#exclamation" />
       </svg>
     </div>
     <ul class="text-sm text-red-700">
