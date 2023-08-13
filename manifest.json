@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "torrent2box",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "Upload torrents from your browser to your ruTorrent seedbox.",
   "icons": {
     "16": "images/icon-green-16.png",

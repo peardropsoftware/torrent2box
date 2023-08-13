@@ -1,5 +1,5 @@
-import {IconType} from "../../shared/enums/IconType";
-import {IpcBackground} from "./IpcBackground";
+import {IconType} from "../../shared/enums/IconType.js";
+import {IpcBackground} from "./IpcBackground.js";
 
 export abstract class ChromeNotify {
     static createNotification(iconType: IconType, body: string): void {

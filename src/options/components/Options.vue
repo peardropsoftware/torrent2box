@@ -1,41 +1,41 @@
 <script lang="ts">
 import {defineComponent, onMounted} from "vue";
 import FormErrorMessage from "./form/FormErrorMessage.vue";
-import {OptionsForm} from "../forms/OptionsForm";
+import {OptionsForm} from "../forms/OptionsForm.js";
 import FormInputText from "./form/FormInputText.vue";
-import {OptionsDto} from "../../shared/dtos/OptionsDto";
-import {ChromeStorage} from "../../shared/services/ChromeStorage";
+import {OptionsDto} from "../../shared/dtos/OptionsDto.js";
+import {ChromeStorage} from "../../shared/services/ChromeStorage.js";
 
 export default defineComponent({
-    name: "Options",
-    components: {
-        FormInputText,
-        FormErrorMessage
-    },
-    setup() {
-        const optionsForm = new OptionsForm();
+  name: "Options",
+  components: {
+    FormInputText,
+    FormErrorMessage
+  },
+  setup() {
+    const optionsForm = new OptionsForm();
 
-        function restoreDefaultLinkMatcher(): void {
-            optionsForm.form.value.linkMatcher = optionsForm.form.value.getDefaultLinkMatcher();
-        }
-
-        onMounted(async () => {
-            try {
-                const optionsDto: OptionsDto = await ChromeStorage.load();
-                if (optionsDto) {
-                    optionsForm.form.value = optionsDto;
-                }
-            } catch (error) {
-                // This is most like "storage is empty" and safely ignored
-                console.error(error);
-            }
-        });
-
-        return {
-            optionsForm,
-            restoreDefaultLinkMatcher
-        };
+    function restoreDefaultLinkMatcher(): void {
+      optionsForm.form.value.linkMatcher = optionsForm.form.value.getDefaultLinkMatcher();
     }
+
+    onMounted(async () => {
+      try {
+        const optionsDto: OptionsDto = await ChromeStorage.load();
+        if (optionsDto) {
+          optionsForm.form.value = optionsDto;
+        }
+      } catch (error) {
+        // This is most like "storage is empty" and safely ignored
+        console.error(error);
+      }
+    });
+
+    return {
+      optionsForm,
+      restoreDefaultLinkMatcher
+    };
+  }
 });
 </script>
 
@@ -70,9 +70,11 @@ export default defineComponent({
       </form-input-text>
 
       <div class="flex">
-        <a href="#" class="text-base text-blue-600 hover:underline" @click="restoreDefaultLinkMatcher()">Restore default</a>
+        <a class="text-base text-blue-600 hover:underline" href="#" @click="restoreDefaultLinkMatcher()">Restore
+          default</a>
         <span class="border-r border-black h-4 self-center mx-2"></span>
-        <a href="https://regex101.com/r/BW6goQ/1" class="text-base text-blue-600 hover:underline" target="_blank">Regex 101</a>
+        <a class="text-base text-blue-600 hover:underline" href="https://regex101.com/r/BW6goQ/1" target="_blank">Regex
+          101</a>
       </div>
 
       <form-input-text v-model="optionsForm.form.value.linkMatcher"
@@ -85,7 +87,8 @@ export default defineComponent({
       </form-input-text>
 
       <div class="flex w-full justify-end">
-        <button type="submit" class="rounded bg-blue-400 px-4 py-2 text-lg text-white hover:bg-blue-500">Save options</button>
+        <button class="rounded bg-blue-400 px-4 py-2 text-lg text-white hover:bg-blue-500" type="submit">Save options
+        </button>
       </div>
     </form>
 

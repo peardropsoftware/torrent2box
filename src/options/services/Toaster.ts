@@ -1,4 +1,4 @@
-import {Toast} from "../models/Toast";
+import {Toast} from "../models/Toast.js";
 import {ref, Ref} from "vue";
 
 export abstract class Toaster {

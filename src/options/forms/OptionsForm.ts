@@ -1,7 +1,7 @@
-import {Form} from "./abstract/Form";
-import {OptionsDto} from "../../shared/dtos/OptionsDto";
-import {ChromeStorage} from "../../shared/services/ChromeStorage";
-import {Toaster} from "../services/Toaster";
+import {Form} from "./abstract/Form.js";
+import {OptionsDto} from "../../shared/dtos/OptionsDto.js";
+import {ChromeStorage} from "../../shared/services/ChromeStorage.js";
+import {Toaster} from "../services/Toaster.js";
 
 export class OptionsForm extends Form<OptionsDto> {
     constructor() {

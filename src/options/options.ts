@@ -3,8 +3,8 @@ import "./options.css";
 // Code
 import {createApp} from "vue";
 import App from "./App.vue";
-import {focusDirective} from "./directives/focus-directive";
-import {Toaster} from "./services/Toaster";
+import {focusDirective} from "./directives/focus-directive.js";
+import {Toaster} from "./services/Toaster.js";
 
 // Global error handler
 window.addEventListener("error", ev => {

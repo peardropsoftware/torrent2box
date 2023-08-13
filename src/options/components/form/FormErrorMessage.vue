@@ -2,13 +2,13 @@
 import {defineComponent} from "vue";
 
 export default defineComponent({
-    name: "FormErrorMessage",
-    props: {
-        errorMessage: {
-            type: String,
-            required: true
-        }
+  name: "FormErrorMessage",
+  props: {
+    errorMessage: {
+      type: String,
+      required: true
     }
+  }
 });
 </script>
 

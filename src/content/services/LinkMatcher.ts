@@ -1,4 +1,4 @@
-import {IpcContent} from "../IpcContent";
+import {IpcContent} from "../IpcContent.js";
 
 export abstract class LinkMatcher {
     static clickEventListener(event: MouseEvent): void {

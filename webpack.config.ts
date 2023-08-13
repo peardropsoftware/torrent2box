@@ -1,15 +1,20 @@
-/// <reference types="./webpack-config" />
-// https://github.com/TypeStrong/ts-node#help-my-types-are-missing
 import path from "path";
-import {Configuration, ProvidePlugin, ProgressPlugin, DefinePlugin} from "webpack";
+import Webpack from "webpack";
 import {VueLoaderPlugin} from "vue-loader";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import CopyWebpackPlugin from "copy-webpack-plugin";
-import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import {CleanWebpackPlugin} from "clean-webpack-plugin";
-import BundleAnalyzerPlugin from "webpack-bundle-analyzer/lib/BundleAnalyzerPlugin";
+import {BundleAnalyzerPlugin} from "webpack-bundle-analyzer";
+import {fileURLToPath} from "url";
+import {WebpackConfiguration} from "webpack-cli";
 
-const webpackConfig: Configuration = {
+// ESM: Fix ReferenceError: __dirname is not defined in ES module scope
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Webpack config
+const {ProgressPlugin, DefinePlugin, ProvidePlugin} = Webpack;
+const webpackConfig: WebpackConfiguration = {
     mode: process.env["NODE_ENV"] as any,
     target: "web",
     entry: {
@@ -31,7 +36,8 @@ const webpackConfig: Configuration = {
             },
             {
                 // TypeScript
-                test: /\.ts$/,
+                // ESM: Match all files with a `.ts`, `.cts`, `.mts` or `.tsx` extension
+                test: /\.([cm]?ts|tsx)$/,
                 use: {
                     loader: "ts-loader",
                     options: {
@@ -43,19 +49,20 @@ const webpackConfig: Configuration = {
             {
                 // HTML
                 test: /\.html$/,
-                exclude: /options\.html$/,
+                exclude: /index\.html$/,
                 use: "html-loader"
             },
             {
                 // CSS
                 test: /\.css$/,
                 use: [
-                    MiniCssExtractPlugin.loader, {
+                    MiniCssExtractPlugin.loader,
+                    {
                         loader: "css-loader",
                         options: {
                             // Do not process urls that use a root path
                             // These may be static resources that do not need
-                            // to be processed by Webpack (fonts/images etc)
+                            // to be processed by Webpack (fonts/images etc.)
                             url: {
                                 filter: (url: string) => !url.startsWith("/")
                             }
@@ -67,8 +74,8 @@ const webpackConfig: Configuration = {
                             postcssOptions: {
                                 plugins: [
                                     "postcss-import",
-                                    "tailwindcss",
-                                ],
+                                    "tailwindcss"
+                                ]
                             }
                         }
                     }
@@ -81,18 +88,6 @@ const webpackConfig: Configuration = {
         new DefinePlugin({
             __VUE_OPTIONS_API__: false,
             __VUE_PROD_DEVTOOLS__: false
-        }),
-        new ForkTsCheckerWebpackPlugin({
-            async: false,
-            typescript: {
-                extensions: {
-                    vue: {
-                        enabled: true,
-                        compiler: "vue/compiler-sfc"
-                    }
-                },
-                mode: "readonly"
-            },
         }),
         new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
@@ -108,7 +103,7 @@ const webpackConfig: Configuration = {
             ]
         }),
         new BundleAnalyzerPlugin({
-            analyzerMode: "static",
+            analyzerMode: process.env["NODE_ENV"] === "development" ? "disabled" : "static",
             openAnalyzer: false
         }),
         new ProgressPlugin({
@@ -159,6 +154,12 @@ const webpackConfig: Configuration = {
             "buffer$": "buffer/index.js"
         },
         extensions: [".ts", ".js", ".vue"],
+        // ESM: Add support for TypeScripts fully qualified ESM imports
+        extensionAlias: {
+            ".js": [".js", ".ts"],
+            ".cjs": [".cjs", ".cts"],
+            ".mjs": [".mjs", ".mts"]
+        }
     }
 };
 

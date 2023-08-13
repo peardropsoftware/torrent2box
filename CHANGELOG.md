@@ -1,4 +1,7 @@
 # Changelog
+#### v0.0.22
+Converted project to ESM/ES2022<br/>
+Updated dependencies<br/>
 #### v0.0.21
 Updated extension to manifest v3<br/>
 Fixed toast messages on options page not clearing<br/>

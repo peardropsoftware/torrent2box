@@ -3,16 +3,16 @@ import {defineComponent} from "vue";
 import Toaster from "./components/Toaster.vue";
 import TitleBar from "./components/TitleBar.vue";
 import Tabs from "./components/Tabs.vue";
-import StickyFooter from "./components/Footer.vue";
+import StickyFooter from "./components/StickyFooter.vue";
 
 export default defineComponent({
-    name: "App",
-    components: {
-        Toaster,
-        TitleBar,
-        Tabs,
-        StickyFooter
-    }
+  name: "App",
+  components: {
+    Toaster,
+    TitleBar,
+    Tabs,
+    StickyFooter
+  }
 });
 </script>
 

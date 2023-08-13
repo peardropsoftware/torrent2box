@@ -1,20 +1,20 @@
 import {Ref, ref, watch} from "vue";
-import {MetaValidator, ValidationErrors} from "meta-validator";
-import {validationErrorFormatter} from "../../utilities/validation-error-formatter";
+import {MetaValidator} from "meta-validator";
+import {validationErrorFormatter} from "../../utilities/validation-error-formatter.js";
 
-export abstract class Form<T extends Record<string, any>> {
+export abstract class Form<T extends Record<PropertyKey, any>> {
     form: Ref<T>;
-    validationErrors: Ref<ValidationErrors | ValidationErrors[]> = ref({});
+    validationErrors: Ref<Record<PropertyKey, any>> = ref({});
     isBusy: Ref<boolean> = ref(false);
     errorMessage: Ref<string> = ref("");
     isSuccess: Ref<boolean> = ref(false);
-    isSkipMissingProperties = true;
+    isSkipUndefinedValues = true;
 
     protected constructor(form: T) {
         this.form = ref(form) as Ref<T>;
         watch(this.form, async (value, oldValue) => {
             this.validationErrors.value = await new MetaValidator().validate(value, {
-                isSkipMissingProperties: this.isSkipMissingProperties,
+                isSkipUndefinedValues: this.isSkipUndefinedValues,
                 customErrorMessageFormatter: validationErrorFormatter
             });
         }, {
@@ -24,9 +24,9 @@ export abstract class Form<T extends Record<string, any>> {
     }
 
     async isFormValid(): Promise<boolean> {
-        this.isSkipMissingProperties = false;
+        this.isSkipUndefinedValues = false;
         this.validationErrors.value = await new MetaValidator().validate(this.form.value, {
-            isSkipMissingProperties: this.isSkipMissingProperties,
+            isSkipUndefinedValues: this.isSkipUndefinedValues,
             customErrorMessageFormatter: validationErrorFormatter
         });
         return (Object.keys(this.validationErrors.value).length === 0);
@@ -36,6 +36,6 @@ export abstract class Form<T extends Record<string, any>> {
         // Warning! - Here be dragons!
         const formConstructor: any = this.form.value.constructor;
         this.form.value = new formConstructor();
-        this.isSkipMissingProperties = true;
+        this.isSkipUndefinedValues = true;
     }
 }

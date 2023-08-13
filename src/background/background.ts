@@ -1,6 +1,7 @@
-import {ActionType} from "../shared/enums/ActionType";
+import {ActionType} from "../shared/enums/ActionType.js";
+import {Torrent} from "./services/Torrent.js";
 import InstalledDetails = chrome.runtime.InstalledDetails;
-import {Torrent} from "./services/Torrent";
+import OnInstalledReason = chrome.runtime.OnInstalledReason;
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse): void => {
     if (!message.actionType) {
@@ -36,7 +37,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse): void => {
 chrome.runtime.onInstalled.addListener((details: InstalledDetails) => {
     console.log("[torrent2box - background] onInstalled()");
     console.log(`[torrent2box - background] process.env.NODE_ENV = ${process.env["NODE_ENV"]}`);
-    if (details.reason === "install" || process.env["NODE_ENV"] === "development") {
+    if (details.reason === OnInstalledReason.INSTALL || process.env["NODE_ENV"] === "development") {
         chrome.runtime.openOptionsPage();
     }
 });

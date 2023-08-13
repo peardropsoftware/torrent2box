@@ -1,7 +1,7 @@
-import {ChromeStorage} from "../shared/services/ChromeStorage";
-import {IpcContent} from "./IpcContent";
-import {ActionType} from "../shared/enums/ActionType";
-import {LinkMatcher} from "./services/LinkMatcher";
+import {ChromeStorage} from "../shared/services/ChromeStorage.js";
+import {IpcContent} from "./IpcContent.js";
+import {ActionType} from "../shared/enums/ActionType.js";
+import {LinkMatcher} from "./services/LinkMatcher.js";
 
 function waitForBackground(): void {
     IpcContent.sendMessage("ping", response => {

@@ -1,4 +1,4 @@
-import {AfterResponseHook, UnifiedFetch} from "unified-fetch";
+import {AfterResponseHook, FetchHooks} from "fetch-hooks-ts";
 
 // Basic error handling hook
 const afterResponseHook: AfterResponseHook = (response, requestInfo, requestInit) => {
@@ -13,7 +13,7 @@ const afterResponseHook: AfterResponseHook = (response, requestInfo, requestInit
     return response;
 };
 
-// Yes, it says no hooks and it has a hook but it's just an error handling one :)
-export const webFetchNoHooks = new UnifiedFetch({
+// Yes, it says no hooks, and it has a hook, but it's just an error handling one :)
+export const fetchNoHooks = new FetchHooks({
     afterResponseHook: afterResponseHook
 });

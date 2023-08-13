@@ -6,7 +6,7 @@ module.exports = {
     },
     extends: [
         "eslint:recommended",
-        "plugin:vue/recommended",
+        "plugin:vue/vue3-recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking"
     ],
@@ -22,10 +22,8 @@ module.exports = {
         "vue"
     ],
     ignorePatterns: [
-        ".eslintrc.js",
-        "postcss.js",
-        "tailwind.config.js",
-        "webpack.config.js"
+        ".eslintrc.cjs",
+        "tailwind.config.js"
     ],
     rules: {
         // Style - Enable
@@ -47,7 +45,7 @@ module.exports = {
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/unbound-method": ["error", {"ignoreStatic": true}],
         // Vue - Enable
-        "vue/name-property-casing": ["error", "PascalCase"],
+        "vue/component-definition-name-casing": ["error", "PascalCase"],
         "vue/mustache-interpolation-spacing": ["error", "never"],
         // Vue - Disable
         "vue/html-self-closing": "off",

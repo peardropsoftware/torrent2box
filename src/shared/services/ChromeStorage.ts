@@ -1,4 +1,4 @@
-import {OptionsDto} from "../dtos/OptionsDto";
+import {OptionsDto} from "../dtos/OptionsDto.js";
 
 export class ChromeStorage {
     static load(): Promise<OptionsDto> {

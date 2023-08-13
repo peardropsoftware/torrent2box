@@ -1,15 +1,15 @@
-import {decode} from "bencode";
-import {IconType} from "../../shared/enums/IconType";
-import {ChromeStorage} from "../../shared/services/ChromeStorage";
-import {webFetchNoHooks} from "../utilities/web-fetch-no-hooks";
-import {ChromeNotify} from "./ChromeNotify";
-import {OptionsDto} from "../../shared/dtos/OptionsDto";
+import Bencode from "bencode";
+import {IconType} from "../../shared/enums/IconType.js";
+import {ChromeStorage} from "../../shared/services/ChromeStorage.js";
+import {fetchNoHooks} from "../utilities/fetch-no-hooks.js";
+import {ChromeNotify} from "./ChromeNotify.js";
+import {OptionsDto} from "../../shared/dtos/OptionsDto.js";
 import {httpStatusTextByCode} from "http-status-ts";
-import {blobToBuffer} from "../utilities/blob-to-buffer";
+import {blobToBuffer} from "../utilities/blob-to-buffer.js";
 
 export abstract class Torrent {
     static async extractTorrentNameFromFile(torrentFile: Blob, fileName: string): Promise<string> {
-        const decodedTorrent = decode(await blobToBuffer(torrentFile), undefined, undefined, "utf8");
+        const decodedTorrent = Bencode.decode(await blobToBuffer(torrentFile), undefined, undefined, "utf8");
 
         if (decodedTorrent.info.name) {
             return decodedTorrent.info.name as string;
@@ -25,7 +25,7 @@ export abstract class Torrent {
     static async sendDataToSeedBox(options: OptionsDto, formData: FormData, torrentName: string): Promise<void> {
         try {
             const base64Credentials = btoa(`${options.userName}:${options.password}`);
-            const response = await webFetchNoHooks.post(options.getServerAddTorrentUrl().href, {
+            const response = await fetchNoHooks.post(options.getServerAddTorrentUrl().href, {
                 body: formData,
                 headers: {
                     "Authorization": `Basic ${base64Credentials}`
@@ -93,7 +93,7 @@ export abstract class Torrent {
 
         try {
             // Download torrent file
-            const response = await webFetchNoHooks.get(torrentUrl.href);
+            const response = await fetchNoHooks.get(torrentUrl.href);
             const result = await response.blob();
 
             // Success

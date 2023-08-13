@@ -1,45 +1,46 @@
 <script lang="ts">
 import {defineComponent, Ref, ref} from "vue";
-import {Tab} from "../models/Tab";
+import {Tab} from "../models/Tab.js";
 import Options from "./Options.vue";
 import Information from "./Information.vue";
 
 export default defineComponent({
-    name: "StickyFooter",
-    components: {
-        Options,
-        Information
-    },
-    setup() {
-        const tabs: Tab[] = [
-            {
-                title: "Options",
-                iconSrc: "/images/icons/cog.svg#cog",
-                component: "Options"
-            },
-            {
-                title: "Information",
-                iconSrc: "/images/icons/information.svg#information",
-                component: "Information"
-            }
-        ];
+  name: "StickyFooter",
+  components: {
+    Options,
+    Information
+  },
+  setup() {
+    const tabs: Tab[] = [
+      {
+        title: "Options",
+        iconSrc: "/images/icons/cog.svg#cog",
+        component: "Options"
+      },
+      {
+        title: "Information",
+        iconSrc: "/images/icons/information.svg#information",
+        component: "Information"
+      }
+    ];
 
-        let dynamicComponent: Ref<string> = ref("Options");
-        function selectTab(tab: Tab): void {
-            dynamicComponent.value = tab.component;
-        }
+    let dynamicComponent: Ref<string> = ref("Options");
 
-        function isTabActive(tab: Tab): boolean {
-            return dynamicComponent.value === tab.component;
-        }
-
-        return {
-            tabs,
-            dynamicComponent,
-            selectTab,
-            isTabActive
-        };
+    function selectTab(tab: Tab): void {
+      dynamicComponent.value = tab.component;
     }
+
+    function isTabActive(tab: Tab): boolean {
+      return dynamicComponent.value === tab.component;
+    }
+
+    return {
+      tabs,
+      dynamicComponent,
+      selectTab,
+      isTabActive
+    };
+  }
 });
 </script>
 
@@ -51,8 +52,8 @@ export default defineComponent({
       <!-- tab headers -->
       <ul class="flex bg-gray-300">
         <li v-for="tab of tabs"
-            class="p-2 cursor-pointer border border-transparent"
             :class="{ 'bg-gray-200': isTabActive(tab), 'bg-blue-200 hover:bg-gray-200 hover:border-black hover:border-dotted hover:border-b': !isTabActive(tab) }"
+            class="p-2 cursor-pointer border border-transparent"
             @click="selectTab(tab)">
           <div class="flex items-center">
             <svg class="h-8 w-8 pr-2">

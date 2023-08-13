@@ -1,4 +1,4 @@
-import {ActionType} from "../../shared/enums/ActionType";
+import {ActionType} from "../../shared/enums/ActionType.js";
 
 export abstract class IpcBackground {
     static sendMessage(text: string, responseCallback?: ResponseCallback): void {
@@ -7,7 +7,7 @@ export abstract class IpcBackground {
             chrome.tabs.sendMessage(result[0].id!, {
                 actionType: ActionType.Message,
                 text: text
-            }, responseCallback);
+            }, responseCallback!);
         });
     }
 }

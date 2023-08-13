@@ -2,25 +2,25 @@
 import {defineComponent, onMounted, Ref, ref} from "vue";
 
 export default defineComponent({
-    name: "TitleBar",
-    setup() {
-        const version: Ref<string> = ref("");
+  name: "TitleBar",
+  setup() {
+    const version: Ref<string> = ref("");
 
-        onMounted(() => {
-            version.value = chrome.runtime.getManifest().version;
-        });
+    onMounted(() => {
+      version.value = chrome.runtime.getManifest().version;
+    });
 
-        return {
-            version
-        };
-    }
+    return {
+      version
+    };
+  }
 });
 </script>
 
 <template>
   <div class="flex items-center justify-center p-5 border-black border-b bg-blue-300">
     <div>
-      <img class="pr-4" src="images/icon-green-48.png" alt="torrent2box">
+      <img alt="torrent2box" class="pr-4" src="images/icon-green-48.png">
     </div>
     <div class="text-white">
       <h1 class="text-3xl font-bold -mb-1">torrent2box</h1>
